@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     background-color: #F1F2F3;
 }
 .guidelines{
@@ -59,4 +58,22 @@ form button{
     border-radius: 5px;
     width: 20%;
     margin-top: 10px;
+}
+@media screen and (max-width:768px) {
+    .main{
+        width: 100vw;
+        padding: 20px;
+    }
+    .guidelines{
+        width: 90%;
+    }
+    .ask-question-form{
+        width: 100%;
+    }
+    form{
+        width: 100%;
+    }
+    form button{
+        width: 35vw;
+    }
 }

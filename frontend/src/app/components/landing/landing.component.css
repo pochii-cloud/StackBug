@@ -54,6 +54,9 @@
 }
 
 @media screen and (max-width:768px) {
+    .main{
+        width: 100vw;
+    }
     .landing{
         display: flex;
         flex-direction: column;
@@ -64,7 +67,7 @@
     }
     .community-card , .teams-card{
         height: auto;
-        width: 50%;
+        width: 80%;
     }
     .landingtext{
         width: 50%;

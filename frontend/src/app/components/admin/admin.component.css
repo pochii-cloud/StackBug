@@ -51,4 +51,18 @@
     font-weight: 600;
 }
 
- 
+@media screen and (max-width:768px) {
+    .main-content{
+        width: 100%;
+    }
+    .main-content .sidebar{
+        display: none;
+        width: 0%;
+    }
+     .body-section{
+        width: 100%;
+    }
+    .body-section .question-list .question-card{
+        width: 80%;
+    }
+}

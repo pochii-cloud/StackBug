@@ -115,7 +115,33 @@
     width:25%;
 }
 @media screen and (max-width:768px) {
-    .left-section ul{
-        width: auto;
+    .askquestiobutton button{
+       margin: 5px;
     }
+    .question-detail-left-section{
+        display: none;
+    }
+    .topquestionsection{
+        width: 100%;
+    }
+    .body-section{
+        width: 100vw;
+        padding: 20px;
+    }
+    .left-section {
+        display: none;
+    }
+    .right-section{
+        width: 100%;
+    }
+    .question-detail-card{
+        margin: 15px 0;
+    }
+    .post-answer button{
+        width: 35vw;
+    }
+    .post-answer form button{
+        width: 40vw;
+    }
+    
 }

@@ -55,11 +55,16 @@
 
 
           <div class="post-answer">
-            <textarea>
-
+           <form [formGroup]="postanswerform">
+            <textarea formControlName="answer">
+            
             </textarea>
+            <div *ngIf="postanswerform.get('answer')?.invalid && (postanswerform.get('answer')?.dirty || postanswerform.get('answer')?.touched)">
+              <p class="err" *ngIf="postanswerform.get('answer')?.errors?.['required']">answer is required.</p>
+            </div>
 
             <button>Post Your Answer</button>
+           </form>
           </div>
 
          </div>

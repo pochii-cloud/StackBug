@@ -37,3 +37,17 @@ form button{
     width: 25%;
     margin-top: 10px;
 }
+@media screen and (max-width:768px) {
+    .main{
+        width: 100vw;
+    }
+    .ask-question-form{
+        width: 100vw;
+    }
+    .ask-question-form form{
+        width: 100%;
+    }
+    .ask-question-form form button{
+        width: 40vw;
+    }
+}

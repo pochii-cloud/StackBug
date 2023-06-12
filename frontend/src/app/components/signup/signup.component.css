@@ -5,7 +5,7 @@
     background-color: #F6F6F6;
     height: 90vh;
 }
-.signin{
+.signin form{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,6 +25,7 @@
     /* border-bottom: 2px solid black; */
     outline:  2px solid black;
     height: 40px;
+    border-radius: 5px;
 
 }
 /* .signin input:focus{
@@ -36,4 +37,13 @@
     border: none;
     padding: 10px;
     margin-top: 30px;
+    border-radius: 5px;
+}
+@media screen and (max-width:768px) {
+    .main{
+        width: 100vw;
+    }
+    .signin form{
+        width: 100%;
+    }
 }
