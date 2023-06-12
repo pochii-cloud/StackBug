@@ -39,6 +39,9 @@
     margin-top: 30px;
     border-radius: 5px;
 }
+.signin p a{
+    color: #0A95FF;
+}
 @media screen and (max-width:768px) {
     .main{
         width: 100vw;

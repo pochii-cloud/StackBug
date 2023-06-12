@@ -115,6 +115,9 @@
     width:25%;
 }
 @media screen and (max-width:768px) {
+    .main{
+        margin-top: 50px;
+    }
     .askquestiobutton button{
        margin: 5px;
     }

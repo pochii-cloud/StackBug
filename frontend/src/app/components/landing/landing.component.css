@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    /* height: 50vh; */
     flex-wrap: wrap;
     font-size: 20px;
 }
@@ -63,7 +63,7 @@
         align-items: center;
         justify-content: center;
         height: auto;
-        margin-top: 30px;
+        margin-top: 100px;
     }
     .community-card , .teams-card{
         height: auto;

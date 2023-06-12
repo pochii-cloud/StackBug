@@ -1,8 +1,8 @@
 <div class="main">
-
     <div class="login">
-        <h1>Login</h1>
+        
         <form  (ngSubmit)="submit()" class="form" [formGroup]="loginForm">
+          <h1>Login</h1>
             <input type="email" formControlName="email" placeholder="Enter Your Email">
             <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
               <p class="err" *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</p>
@@ -13,8 +13,8 @@
               <p class="err" *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</p>
             </div>
             <button type="submit">Login</button>
-            <p>Don't have an account? <a routerLink="/register">Click here</a></p>
-            <p> <a routerLink="/reset">Reset Password?</a></p>
+            <p>Don't have an account? <a routerLink="/signup">create account</a></p>
+            <p> <a routerLink="">Reset Password?</a></p>
           </form>
         
     </div>

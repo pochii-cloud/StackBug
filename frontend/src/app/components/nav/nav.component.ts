@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -10,6 +10,17 @@ import { RouterModule } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class NavComponent {
+export class NavComponent implements OnInit{
 
+    show=false;
+
+    ngOnInit(): void {
+      
+
+     
+    }
+
+    togglenav(): void {
+      this.show = !this.show;
+    }
 }

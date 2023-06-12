@@ -1,8 +1,9 @@
 <div class="main">
 
     <div class="signin">
-        <h1>Sign Up</h1>
+        
         <form [formGroup]="signupform">
+          <h1>Sign Up</h1>
             <label for="username">Username:</label>
         <input type="text" placeholder="enter username" formControlName="username" />
         <div *ngIf="signupform.get('username')?.invalid && (signupform.get('username')?.dirty || signupform.get('username')?.touched)">
@@ -23,8 +24,8 @@
         
 
         <button>Sign Up</button>
+        <p>Already have an account? <a routerLink="/login">login</a></p>
         </form>
-        <p style="margin-top: 20px;">Have an account already?<a href="">Login</a></p>
     </div>
 
 </div>
