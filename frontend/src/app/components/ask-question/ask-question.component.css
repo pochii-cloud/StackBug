@@ -1,0 +1,62 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #F1F2F3;
+}
+.guidelines{
+    margin-top: 50px;
+    background-color: #EBF4FB;
+    width: 50%;
+    height: auto;
+    padding: 20px 50px;
+}
+.guidelines h2{
+    font-weight: 700;
+    font-size: 20px;
+}
+.guidelines ul{
+    margin-top: 30px;
+}
+.guidelines ul li{
+    font-size: 18px;
+    margin-top: 10px;
+    list-style:circle;
+}
+.ask-question-form{
+    width: 100%;
+    padding: 20px;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    background-color: #ffff;
+    padding: 20px;
+}
+form h2{
+    font-size: 20px;
+    font-weight: 700;
+}
+.ask-question-form form input{
+    border: 2px solid black;
+    height: 40px;
+}
+.ask-question-form form textarea{
+    border: 2px solid black;
+    height: 150px;
+}
+.ask-question-form label{
+    margin-top: 20px;
+}
+form button{
+    background-color: #0A95FF;
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    width: 20%;
+    margin-top: 10px;
+}

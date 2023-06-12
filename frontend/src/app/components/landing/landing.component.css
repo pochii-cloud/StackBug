@@ -1,0 +1,73 @@
+.landing{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    flex-wrap: wrap;
+    font-size: 20px;
+}
+.community-card,.teams-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 30%;
+    background-color: #FEE3CD;
+    border-radius: 10px;
+    padding: 20px;
+    height: 30vh;
+    margin: 10px;
+   
+}
+.teams-card{
+    background-color:#CDE9FE !important;
+}
+.community-card button ,.teams-card button{
+    background-color: #F2740D;
+    color: white !important;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    outline: none;
+}
+.teams-card button{
+    background-color: #0A95FF;
+    margin-top: 20px !important;
+}
+.landingtextdiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.landingtext{
+    margin-top: 5vh;
+    font-size: 25px;
+    width: 20%;
+    text-align: center;
+    font-weight: 700;
+}
+.landingtext span{
+    color: #F2740D;
+}
+
+@media screen and (max-width:768px) {
+    .landing{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        margin-top: 30px;
+    }
+    .community-card , .teams-card{
+        height: auto;
+        width: 50%;
+    }
+    .landingtext{
+        width: 50%;
+    }
+
+}

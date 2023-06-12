@@ -1,0 +1,57 @@
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  height: 80px;
+  padding: 10px 40px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.navbar .middle {
+  display: flex;
+  align-items: center;
+}
+.navbar .middle li {
+  margin: 0 20px;
+}
+
+.navbar .middle .form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 500px;
+}
+.navbar .middle li input {
+  border: none;
+  width: 100%;
+}
+.navbar .middle li input:focus {
+  outline: none;
+}
+
+.navbar .account-buttons .login{
+    background-color: #E1ECF4;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.navbar .account-buttons .signup{
+   
+    background-color: #0A95FF;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.search-button{
+  background-color: #0A95FF;
+  color: white;
+  padding: 5px 10px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}

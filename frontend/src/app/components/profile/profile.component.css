@@ -1,0 +1,144 @@
+.main-section{
+    display: flex;
+    padding:50px;
+    width: 100%;
+
+}
+.left-section{
+    display: flex;
+    align-items: start;
+    justify-content:flex-end;
+    width: 20%;
+    height: 100%;
+    padding: 50px 0;
+}
+.left-section ul{
+    width: 40%;
+}
+.left-section ul li{
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 700;
+    padding: 5px;
+}
+.left-section ul li:hover{
+    background-color: #EBF4FB;
+    border-right: 4px solid #0A95FF ;
+    border-radius: 5px;
+}
+.right-section{
+    height: 100vh;
+    width: 80%;
+    border-left: 2px solid black;
+    padding: 20px;
+}
+.right-section .top-section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-content .profile{
+    display: flex;
+    align-items: center;
+}
+.profile-content .profile img{
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 5px;
+}
+.profile-content .profile .Name {
+    margin: 5px;
+}
+.profile-content .profile .Name h1{
+    font-weight: 700;
+    font-size: 25px;
+}
+.right-section .update-profile-button button{
+    background-color: #0A95FF;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin: 10px;
+}
+.right-section .bottom-section .header{
+    display: flex;
+    padding: 20px;
+    width: 100%;
+}
+.right-section .bottom-section .header h1{
+   font-weight: 700;
+   font-size: 30px;
+} 
+.right-section .bottom-section-content{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+}
+.right-section .bottom-section-content .bottom-left-section{
+    width: 20%;
+    height: 60vh;
+}
+.right-section .bottom-section-content .bottom-right-section{
+    width: 80%;
+    height: 60vh;
+}
+.right-section .bottom-section-content .bottom-left-section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.right-section .bottom-section-content .bottom-left-section ul{
+   width: 100px;
+}
+.right-section .bottom-section-content .bottom-left-section ul li{
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 5px;
+    list-style: none;
+}
+.right-section .bottom-section-content .bottom-left-section ul li:hover{
+    background-color: #EBF4FB;
+    border-right: 4px solid #0A95FF ;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.question-card{
+    background-color: #EBF4FB;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-top: 15px;
+}
+.question-card .votes-section {
+    font-weight: 700;
+    width: auto;
+}
+.question-card .question-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    width: 60%;
+}
+.question-card .question-section h2{
+       cursor: pointer;
+}
+.question-card .question-section .question-section-tags{
+    display: flex;
+    margin-top: 5px;
+}
+.question-card .question-section .question-section-tags p{
+    display: flex;
+    font-size: 12px;
+    margin: 5px;
+    background-color: #CDE9FE;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}

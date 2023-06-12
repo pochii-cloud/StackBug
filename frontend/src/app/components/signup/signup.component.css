@@ -1,0 +1,39 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F6F6F6;
+    height: 90vh;
+}
+.signin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #FFFF;
+    width: 35vw;
+    padding: 30px 60px;
+}
+.signin h1{
+    font-size: 30px;
+    font-weight: 500;
+}
+.signin label{
+    margin: 15px 0;
+}
+.signin input{
+    /* border-bottom: 2px solid black; */
+    outline:  2px solid black;
+    height: 40px;
+
+}
+/* .signin input:focus{
+    outline: none;
+} */
+.signin button{
+    background-color: #0A95FF;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 30px;
+}

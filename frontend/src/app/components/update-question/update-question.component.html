@@ -1,0 +1,29 @@
+<div class="main">
+    <div class="ask-question-form">
+        <form [formGroup]="updateQestionForm">
+          <h2>Update Question</h2>
+          <label for="question-title">Title:</label>
+          <input type="text"  placeholder="enter question title" id="question-title" formControlName="title"/>
+          
+          <div *ngIf="updateQestionForm.get('title')?.invalid && (updateQestionForm.get('title')?.dirty || updateQestionForm.get('title')?.touched)">
+            <p class="err" *ngIf="updateQestionForm.get('title')?.errors?.['required']">title is required.</p>
+          </div>
+  
+  
+          <label for="question-problem">Problem Description:</label>
+          <textarea id="question-problem" formControlName="problem"></textarea>
+          <div *ngIf="updateQestionForm.get('problem')?.invalid && (updateQestionForm.get('problem')?.dirty || updateQestionForm.get('problem')?.touched)">
+            <p class="err" *ngIf="updateQestionForm.get('problem')?.errors?.['required']">description is required.</p>
+          </div>
+          
+          <label for="question-expectations">What you tried and you were expecting:</label>
+          <textarea id="question-expectations" formControlName="expectations"></textarea>
+           
+          <div *ngIf="updateQestionForm.get('expectations')?.invalid && (updateQestionForm.get('expectations')?.dirty || updateQestionForm.get('expectations')?.touched)">
+            <p class="err" *ngIf="updateQestionForm.get('expectations')?.errors?.['required']">field is required.</p>
+          </div>
+  
+          <button [disabled]="updateQestionForm.invalid">Update Question</button>
+        </form>
+      </div>
+</div>

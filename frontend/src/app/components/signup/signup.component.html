@@ -1,0 +1,30 @@
+<div class="main">
+
+    <div class="signin">
+        <h1>Sign Up</h1>
+        <form [formGroup]="signupform">
+            <label for="username">Username:</label>
+        <input type="text" placeholder="enter username" formControlName="username" />
+        <div *ngIf="signupform.get('username')?.invalid && (signupform.get('username')?.dirty || signupform.get('username')?.touched)">
+            <p class="err" *ngIf="signupform.get('username')?.errors?.['required']">username is required.</p>
+          </div>
+
+        <label for="email">Email:</label>
+        <input type="email" placeholder="enter email" formControlName="email"/>
+        <div *ngIf="signupform.get('email')?.invalid && (signupform.get('email')?.dirty || signupform.get('email')?.touched)">
+            <p class="err" *ngIf="signupform.get('email')?.errors?.['required']">Email is required.</p>
+            <p class="err" *ngIf="signupform.get('email')?.errors?.['email']">Invalid email format.</p>
+          </div>
+        <label for="password">Password:</label>
+        <input type="password" placeholder="enter password" formControlName="password"/>
+        <div *ngIf="signupform.get('password')?.invalid && (signupform.get('password')?.dirty || signupform.get('password')?.touched)">
+            <p class="err" *ngIf="signupform.get('password')?.errors?.['required']">Password is required.</p>
+          </div>
+        
+
+        <button>Sign Up</button>
+        </form>
+        <p style="margin-top: 20px;">Have an account already?<a href="">Login</a></p>
+    </div>
+
+</div>
