@@ -10,6 +10,7 @@ import { QuestionDetailsComponent } from './components/question-details/question
 import { ProfileComponent } from './components/profile/profile.component';
 import { UpdateQuestionComponent } from './components/update-question/update-question.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,9 @@ const routes: Routes = [
   },
   {
     path:'admin',component:AdminComponent 
+  },
+  {
+    path:'**',component:NotFoundComponent 
   }
 ];
 
