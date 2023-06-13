@@ -22,5 +22,10 @@ export class NavComponent implements OnInit{
 
     togglenav(): void {
       this.show = !this.show;
+
+        // Automatically close the navbar after a small delay (e.g., 500ms)
+    setTimeout(() => {
+      this.show = false;
+    }, 2000);
     }
 }

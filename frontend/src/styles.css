@@ -8,6 +8,12 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap");
+html {
+  font-family: "Roboto", sans-serif;
+  background-color: white;
+}
 app-root{
     display: flex;
     flex-direction: column;
