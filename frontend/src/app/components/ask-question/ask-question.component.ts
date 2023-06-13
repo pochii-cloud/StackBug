@@ -18,6 +18,7 @@ export class AskQuestionComponent implements OnInit {
       ngOnInit(): void {
           this.askQestionForm=this.fb.group({
              title:['',Validators.required],
+             tags:['',Validators.required],
              problem:['',Validators.required],
              expectations:['',Validators.required]
           })

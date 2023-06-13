@@ -8,7 +8,14 @@
           <div *ngIf="updateQestionForm.get('title')?.invalid && (updateQestionForm.get('title')?.dirty || updateQestionForm.get('title')?.touched)">
             <p class="err" *ngIf="updateQestionForm.get('title')?.errors?.['required']">title is required.</p>
           </div>
-  
+
+          <label for="question-tag">Tags:</label>
+          <input type="text"  placeholder="enter question tag eg.python" id="question-tag" formControlName="tags"/>
+          
+          
+          <div *ngIf="updateQestionForm.get('tags')?.invalid && (updateQestionForm.get('tags')?.dirty || updateQestionForm.get('tags')?.touched)">
+            <p class="err" *ngIf="updateQestionForm.get('tags')?.errors?.['required']">tags are required.</p>
+          </div>
   
           <label for="question-problem">Problem Description:</label>
           <textarea id="question-problem" formControlName="problem"></textarea>

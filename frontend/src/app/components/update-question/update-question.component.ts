@@ -17,6 +17,7 @@ export class UpdateQuestionComponent implements OnInit{
   ngOnInit(): void {
      this.updateQestionForm=this.fb.group({
              title:['',Validators.required],
+             tags:['',Validators.required],
              problem:['',Validators.required],
              expectations:['',Validators.required]
           })
