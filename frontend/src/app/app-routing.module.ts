@@ -11,39 +11,62 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UpdateQuestionComponent } from './components/update-question/update-question.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LandingComponent,
+    loadComponent:()=>import('./components/landing/landing.component').then(c=>c.LandingComponent)
+    // component: LandingComponent,
   },
   {
-    path: 'questions',
-        component: HomeComponent,
+    path: 'questions',loadComponent:()=>import('../app/components/home/home.component').then(c=>c.HomeComponent)
   },
   {
-    path:'login',component:LoginComponent 
+    path:'login',
+     loadComponent:()=>import('../app/components/login/login.component').then(c=>c.LoginComponent)
+    // component:LoginComponent 
   },
   {
-    path:'signup',component:SignupComponent 
+    path:'signup',
+    loadComponent:()=>import('../app/components/signup/signup.component').then(c=>c.SignupComponent)
+    // component:SignupComponent 
   },
   {
-    path:'profile',component:ProfileComponent 
+    path:'profile',
+    loadComponent:()=>import('../app/components/profile/profile.component').then(c=>c.ProfileComponent)
+    // component:ProfileComponent 
   },
   {
-    path:'ask-question',component:AskQuestionComponent 
+    path:'ask-question',
+    loadComponent:()=>import('../app/components/ask-question/ask-question.component').then(c=>c.AskQuestionComponent)
+    // component:AskQuestionComponent 
   },
   {
-    path:'question-detail',component:QuestionDetailsComponent 
+    path:'question-detail',
+    loadComponent:()=>import('../app/components/question-details/question-details.component').then(c=>c.QuestionDetailsComponent)
+    // component:QuestionDetailsComponent 
   },
   {
-    path:'update-question',component:UpdateQuestionComponent 
+    path:'update-question',
+    loadComponent:()=>import('../app/components/update-question/update-question.component').then(c=>c.UpdateQuestionComponent)
+    // component:UpdateQuestionComponent 
   },
   {
-    path:'admin',component:AdminComponent 
+    path:'admin',
+    loadComponent:()=>import('../app/components/admin/admin.component').then(c=>c.AdminComponent)
+    // component:AdminComponent 
   },
   {
-    path:'**',component:NotFoundComponent 
+    path:'forgotten-password',
+    loadComponent:()=>import('../app/components/forgotten-password/forgotten-password.component').then(c=>c.ForgottenPasswordComponent)
+    // component:ForgottenPasswordComponent 
+  },
+  
+  {
+    path:'**',
+    loadComponent:()=>import('../app/components/not-found/not-found.component').then(c=>c.NotFoundComponent)
+    // component:NotFoundComponent 
   }
 ];
 

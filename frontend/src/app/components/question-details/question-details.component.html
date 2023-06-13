@@ -18,8 +18,8 @@
     <div class="body-section">
      <div class="left-section">
           <ul>
-             <li>Home</li>
-             <li>Questions</li>
+             <li routerLink="/">Home</li>
+             <li routerLink="/questions">Questions</li>
           </ul>
          </div>
  
@@ -34,10 +34,19 @@
              </div>
              <div class="question-section">
                This is the answer to Installation Error with pycURL on Python  
-               <a href="">add comment</a>
+               <a (click)="togglecommentform()" style="cursor: pointer;">add comment</a>
+               <form [formGroup]="commentform" *ngIf="showcommentform === true" style="display: flex;">
+                <textarea formControlName="comment"></textarea>
+               
+               <div *ngIf="commentform.get('comment')?.invalid && (commentform.get('comment')?.dirty || commentform.get('comment')?.touched)">
+                <p class="err" *ngIf="commentform.get('comment')?.errors?.['required']">comment is required.</p>
+              </div>
+              <img src="../../../assets/icons/comment.svg"/>
+               </form>
              </div>
             
            </div>
+          
            <div class="question-detail-card">
             <div class="votes-section">
                <ul>
@@ -48,11 +57,11 @@
             </div>
             <div class="question-section">
               This is the answer to Installation Error with pycURL on Python  
-              <a href="">add comment</a>
+              <a>add comment</a>
+             
             </div>
            
           </div>
-
 
           <div class="post-answer">
            <form [formGroup]="postanswerform">
