@@ -13,8 +13,9 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent implements OnInit{
 
   // loginForm!:FormGroup
-    name!:string;
+ 
     email!:string
+    password!:string;
   constructor(private fb:FormBuilder){}
 
   ngOnInit(): void {
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit{
 
   submitForm(form: NgForm) {
     if (form.valid) {
-      console.log(this.name,this.email)
+      console.log(this.password,this.email)
     }
   }
     

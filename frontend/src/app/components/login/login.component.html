@@ -2,19 +2,18 @@
     <div class="login">
           <form #myForm="ngForm" (ngSubmit)="submitForm(myForm)">
               <h1>Login</h1>
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" [(ngModel)]="name" required>
-              <div class="err" *ngIf="myForm.controls['name']?.invalid && (myForm.controls['name']?.dirty || myForm.controls['name']?.touched)">
-                <div class="err" *ngIf="myForm.controls['name'].errors?.['required']">Name is required.</div>
-              </div>
-          
-            
-            
+             
               <label for="email">Email</label>
               <input type="email" id="email" name="email" [(ngModel)]="email" required email>
               <div class="err" *ngIf="myForm.controls['email']?.invalid && (myForm.controls['email']?.dirty || myForm.controls['email']?.touched)">
                 <div class="err" *ngIf="myForm.controls['email'].errors?.['required']">Email is required.</div>
                 <div class="err" *ngIf="myForm.controls['email'].errors?.['email']">Invalid email format.</div>
+              </div>
+
+              <label for="password">Password</label>
+              <input type="text" id="name" name="password" [(ngModel)]="password" required>
+              <div class="err" *ngIf="myForm.controls['password']?.invalid && (myForm.controls['password']?.dirty || myForm.controls['password']?.touched)">
+                <div class="err" *ngIf="myForm.controls['password'].errors?.['required']">Password is required.</div>
               </div>
          
             
