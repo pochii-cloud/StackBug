@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -9,6 +9,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent  implements OnInit {
+     showquestions = true
 
+     ngOnInit(): void {
+       
+     }
+     
+
+     toogleshowquestions(){
+       this.showquestions=!this.showquestions
+     }
 }

@@ -7,13 +7,13 @@
        <div class="nav">
         <ul>
             <li><img src="../../../assets/icons/overview.svg"/><span>Overview</span></li>
-            <li><img src="../../../assets/icons/users.svg"/><span>Users</span></li>
-            <li><img src="../../../assets/icons/projects.svg"/><span>Projects</span></li>
+            <li (click)="toogleshowquestions()"><img src="../../../assets/icons/users.svg"/><span>Users</span></li>
+            <li (click)="toogleshowquestions()" ><img src="../../../assets/icons/projects.svg"/><span>Questions</span></li>
         </ul>
        </div>
     </div>
     <div class="body-section">
-        <div class="question-list">
+        <div class="question-list" *ngIf="showquestions == true">
             <div class="question-card">
                 <div class="profile-image">
                    <img src="../../../assets/tupac.png"/>
@@ -50,6 +50,51 @@
                 <div class="question-section">
                   <h1>This is the question one</h1>
                   <h5>This is the test description</h5>
+                </div>
+
+                <div class="delete-section">
+                <img src="../../../assets/icons/delete-icon.svg"/>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="question-list" *ngIf="showquestions == false">
+            <div class="question-card">
+                <div class="profile-image">
+                   <img src="../../../assets/tupac.png"/>
+                </div>
+
+                <div class="question-section">
+                  <h1>John M</h1>
+            
+                </div>
+
+                <div class="delete-section">
+                <img src="../../../assets/icons/delete-icon.svg"/>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="profile-image">
+                   <img src="../../../assets/tupac.png"/>
+                </div>
+
+                <div class="question-section">
+                  <h1>Tupac Shakur</h1>
+                </div>
+
+                <div class="delete-section">
+                <img src="../../../assets/icons/delete-icon.svg"/>
+                </div>
+            </div>
+            <div class="question-card">
+                <div class="profile-image">
+                   <img src="../../../assets/tupac.png"/>
+                </div>
+
+                <div class="question-section">
+                  <h1>Makaveli</h1>
                 </div>
 
                 <div class="delete-section">

@@ -83,17 +83,31 @@ table{
 .question-card .question-section{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    /* align-items: center; */
+    /* text-align: center; */
     justify-content: center;
     width: 60%;
+    padding: 15px 10px;
 }
 .question-card .question-section h2{
        cursor: pointer;
 }
-.question-card .question-section .question-section-tags{
+.question-card .question-section .question-section-tags {
     display: flex;
-    margin-top: 5px;
+    align-items: center;
+    justify-content: space-between ;
+    margin-top: 35px;
+    width: 40vw;
+}
+.question-card .question-section .question-section-tags .tags {
+    display: flex;
+    align-items: center;
+}
+.question-card .question-section .question-section-tags .user {
+     display: flex;
+     color: #0A95FF ;
+     cursor: pointer;
+     font-weight: 700;
 }
 .question-card .question-section .question-section-tags p{
     display: flex;
