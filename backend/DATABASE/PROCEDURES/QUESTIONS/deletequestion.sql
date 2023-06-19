@@ -1,0 +1,7 @@
+CREATE OR ALTER PROCEDURE deleteQuestion
+    @id VARCHAR ( 255 )
+AS
+BEGIN
+    UPDATE QUESTIONS SET is_deleted = 1 WHERE id = @id
+    SELECT * FROM QUESTIONS WHERE id = @id
+END

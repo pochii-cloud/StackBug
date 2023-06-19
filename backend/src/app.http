@@ -1,0 +1,10 @@
+POST http://localhost:5000/questions/add-question
+Content-Type: application/json
+
+{
+  "title": "Sample Question reupdat",
+  "userId": "1",
+  "description": "This is a sample question",
+  "code": "console.log('Sample code');",
+  "views": 0
+}

@@ -1,0 +1,10 @@
+import express from 'express'
+import { deleteUser, getAllUsersController, getSingleUser, loginUser, registerusercontroller } from '../controllers/UserController'
+
+export const userroute=express()
+
+userroute.post('/adduser',registerusercontroller)
+userroute.get('/getusers',getAllUsersController)
+userroute.post('/loginuser',loginUser)
+userroute.get('/getuser/:id',getSingleUser)
+userroute.delete('/deleteuser/:id',deleteUser)
