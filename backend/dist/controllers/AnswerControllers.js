@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.downvoteAnswerController = exports.upvoteAnswerController = exports.getAnswerByIdController = exports.insertAnswerController = exports.getAnswersByQuestionIdController = exports.getAllAnswersController = void 0;
+exports.setAnswerAsAccepted = exports.downvoteAnswerController = exports.upvoteAnswerController = exports.getAnswerByIdController = exports.insertAnswerController = exports.getAnswersByQuestionIdController = exports.getAllAnswersController = void 0;
 const helpers_1 = require("../helpers");
 const uuid_1 = require("uuid");
 const getAllAnswersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -97,3 +97,21 @@ const downvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.downvoteAnswerController = downvoteAnswerController;
+// Controller function for setting an answer as accepted
+const setAnswerAsAccepted = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        // Execute the SQL update statement to set is_accepted to 1
+        const result = yield helpers_1.DatabaseHelper.exec('SetAnswerAsAccepted', { id });
+        if (result.rowsAffected[0] > 0) {
+            res.status(200).json({ success: true, message: 'Answer marked as accepted' });
+        }
+        else {
+            res.status(404).json({ success: false, message: 'Answer not found' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+exports.setAnswerAsAccepted = setAnswerAsAccepted;

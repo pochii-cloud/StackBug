@@ -97,3 +97,26 @@ export const getAllAnswersController: RequestHandler = async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
+
+  
+  // Controller function for setting an answer as accepted
+  export const setAnswerAsAccepted = async (req: Request<{ id: string }>, res: Response) => {
+    try {
+      const { id } = req.params;
+  
+      // Execute the SQL update statement to set is_accepted to 1
+      const result = await DatabaseHelper.exec('SetAnswerAsAccepted', { id });
+  
+      if (result.rowsAffected[0] > 0) {
+        res.status(200).json({ success: true, message: 'Answer marked as accepted' });
+      } else {
+        res.status(404).json({ success: false, message: 'Answer not found' });
+      }
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  };
+  
+  
+  
+  
