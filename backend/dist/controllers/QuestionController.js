@@ -122,7 +122,7 @@ const deleteQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function*
 exports.deleteQuestion = deleteQuestion;
 const getQuestionsByUserId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { user_id } = req.body;
+        const { user_id } = req.params;
         const questions = yield (yield helpers_1.DatabaseHelper.exec('GetQuestionsByUserId', { user_id })).recordset;
         res.status(200).json(questions);
     }

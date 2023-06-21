@@ -27,3 +27,10 @@ export interface User{
   email:string
   password:string
 }
+
+export interface AnswerVote{
+  id:string
+  vote:Number
+  answer_id:string
+  user_id:string
+}

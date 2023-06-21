@@ -123,9 +123,9 @@ export const deleteQuestion = async (req: Request, res: Response) => {
   }
 };
 
-export const getQuestionsByUserId = async (req: Request, res: Response) => {
+export const getQuestionsByUserId = async (req: Request<{user_id:string}>, res: Response) => {
   try {
-    const { user_id } = req.body;
+    const { user_id } = req.params;
 
     const questions = await(await DatabaseHelper.exec('GetQuestionsByUserId', { user_id })).recordset;
 

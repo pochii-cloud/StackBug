@@ -20,3 +20,4 @@ app.use('/user', user_1.userroute);
 app.listen(5000, () => {
     console.log('server running now');
 });
+module.exports = app;

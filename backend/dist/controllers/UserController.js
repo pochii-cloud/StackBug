@@ -113,7 +113,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const payload = rest;
         console.log(payload);
         const token = jsonwebtoken_1.default.sign(payload, 'ttttweywastring', { expiresIn: '360000s' });
-        return res.json({ mesage: "Login Successfull!!", token, role: user.isAdmin, username: user.username });
+        return res.json({ mesage: "Login Successfull!!", token, role: user.isAdmin, username: user.username }).status(200);
     }
     catch (error) {
         res.status(500).json(error.message);

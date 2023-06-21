@@ -1,19 +1,36 @@
-CREATE OR ALTER PROCEDURE downvoteAnswer
-    @answer_id VARCHAR(255)
+CREATE PROCEDURE DownvoteAnswer
+    @answerId VARCHAR(255),
+    @userId VARCHAR(100)
 AS
 BEGIN
-    IF EXISTS (SELECT * FROM ANSWER_VOTE WHERE answer_id = @answer_id)
+    SET NOCOUNT ON;
+
+    -- Check if the user has already downvoted the answer
+    IF EXISTS (
+        SELECT 1
+        FROM ANSWER_VOTE
+        WHERE answer_id = @answerId
+          AND user_id = @userId
+          AND downvote = 1
+    )
     BEGIN
-        -- Answer has existing votes, update the vote count
-        UPDATE ANSWER_VOTE
-        SET vote = vote - 1,
-            updated_at = GETDATE()
-        WHERE answer_id = @answer_id;
+        -- User has already downvoted, cannot downvote again
+        RETURN;
     END
-    ELSE
+
+    -- Update the downvote count and set downvote to 1
+    UPDATE ANSWER_VOTE
+    SET downvote = 1,
+        votes = votes - 1,
+        updated_at = GETDATE()
+    WHERE answer_id = @answerId
+      AND user_id = @userId;
+
+    -- If no rows were affected, the user has not yet voted on the answer
+    IF @@ROWCOUNT = 0
     BEGIN
-        -- Answer has no votes, insert a new downvote record with vote = -1
-        INSERT INTO ANSWER_VOTE (id, vote, answer_id, created_at, updated_at)
-        VALUES (NEWID(), -1, @answer_id, GETDATE(), GETDATE());
-    END;
-END;
+        -- Insert a new row with downvote = 1
+        INSERT INTO ANSWER_VOTE (id, downvote, answer_id, user_id, votes)
+        VALUES (NEWID(), 1, @answerId, @userId, -1);
+    END
+END

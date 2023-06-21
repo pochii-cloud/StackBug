@@ -75,9 +75,17 @@ const getAnswerByIdController = (req, res) => __awaiter(void 0, void 0, void 0, 
 exports.getAnswerByIdController = getAnswerByIdController;
 const upvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { answer_id } = req.body;
-        yield helpers_1.DatabaseHelper.exec('upvoteAnswer', { answer_id });
-        res.status(200).json({ message: 'Answer upvoted successfully' });
+        const { answer_id, user_id } = req.body;
+        const result = yield helpers_1.DatabaseHelper.exec('UpvoteAnswer', {
+            answerId: answer_id,
+            userId: user_id,
+        });
+        if (result) {
+            res.status(200).json({ message: 'Upvote successful' });
+        }
+        else {
+            res.status(500).json({ error: 'Invalid response from the database' });
+        }
     }
     catch (error) {
         console.error('Error executing stored procedure:', error.message);
@@ -87,9 +95,17 @@ const upvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, f
 exports.upvoteAnswerController = upvoteAnswerController;
 const downvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { answer_id } = req.body;
-        yield helpers_1.DatabaseHelper.exec('downvoteAnswer', { answer_id });
-        res.status(200).json({ message: 'Answer downvoted successfully' });
+        const { answer_id, user_id } = req.body;
+        const result = yield helpers_1.DatabaseHelper.exec('DownvoteAnswer', {
+            answerId: answer_id,
+            userId: user_id,
+        });
+        if (result) {
+            res.status(200).json({ message: 'Answer downvoted successfully' });
+        }
+        else {
+            res.status(400).json({ message: 'User has already downvoted' });
+        }
     }
     catch (error) {
         console.error('Error executing stored procedure:', error.message);

@@ -1,20 +1,28 @@
-CREATE OR ALTER PROCEDURE upvoteAnswer
-    @answer_id VARCHAR(255)
+CREATE OR ALTER PROCEDURE UpvoteAnswer
+    @answerId VARCHAR(255),
+    @userId VARCHAR(100)
 AS
 BEGIN
-    IF EXISTS (SELECT 1 FROM ANSWER_VOTE WHERE answer_id = @answer_id)
+    SET NOCOUNT ON;
+
+    -- Check if the user has already upvoted
+    DECLARE @hasUpvoted BIT;
+    SET @hasUpvoted = (SELECT upvote FROM ANSWER_VOTE WHERE answer_id = @answerId AND user_id = @userId);
+
+    IF (@hasUpvoted = 0)
     BEGIN
+        -- Increase votes by one and set upvote to 1
         UPDATE ANSWER_VOTE
-        SET vote = vote + 1,
+        SET upvote = 1,
+            votes = votes + 1,
             updated_at = GETDATE()
-        WHERE answer_id = @answer_id;
+        WHERE answer_id = @answerId AND user_id = @userId;
+
+        SELECT 'Upvote successful.' AS Result;
     END
     ELSE
     BEGIN
-        -- Insert a new row with initial vote count
-        INSERT INTO ANSWER_VOTE (id, vote, answer_id, created_at, updated_at)
-        VALUES (NEWID(), 1, @answer_id, GETDATE(), GETDATE());
-    END;
+        -- User has already upvoted
+        SELECT 'User has already upvoted.' AS Result;
+    END
 END;
-
-

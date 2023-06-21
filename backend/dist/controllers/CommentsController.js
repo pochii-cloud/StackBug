@@ -32,10 +32,10 @@ const insertCommentController = (req, res) => __awaiter(void 0, void 0, void 0, 
 exports.insertCommentController = insertCommentController;
 const getAnswerCommentsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { answer_id } = req.body;
+        const { answer_id } = req.params;
         console.log(answer_id);
         const comments = yield (yield helpers_1.DatabaseHelper.exec('getAnswerCommentByAnswerId', { answer_id })).recordset;
-        console.log(comments);
+        // console.log(comments);
         res.status(200).json(comments);
     }
     catch (error) {

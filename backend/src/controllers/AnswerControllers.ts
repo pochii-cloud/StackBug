@@ -1,7 +1,7 @@
 import { Request, RequestHandler, Response } from 'express';
 import { DatabaseHelper } from '../helpers';
 import {v4 as uid} from 'uuid'
-import { Answer } from '../interfaces/interfaces';
+import { Answer, AnswerVote } from '../interfaces/interfaces';
 
 
 export const getAllAnswersController: RequestHandler = async (req, res) => {
@@ -71,13 +71,22 @@ export const getAllAnswersController: RequestHandler = async (req, res) => {
   };
   
    
+
+  
   export const upvoteAnswerController = async (req: Request, res: Response) => {
     try {
-      const { answer_id } = req.body;
+      const { answer_id, user_id } = req.body;
   
-      await DatabaseHelper.exec('upvoteAnswer', { answer_id });
+      const result = await DatabaseHelper.exec('UpvoteAnswer', {
+        answerId: answer_id,
+        userId: user_id,
+      });
   
-      res.status(200).json({ message: 'Answer upvoted successfully' });
+      if (result) {
+        res.status(200).json({ message: 'Upvote successful' });
+      } else {
+        res.status(500).json({ error: 'Invalid response from the database' });
+      }
     } catch (error: any) {
       console.error('Error executing stored procedure:', error.message);
       res.status(500).json({ error: 'Internal server error' });
@@ -85,13 +94,25 @@ export const getAllAnswersController: RequestHandler = async (req, res) => {
   };
   
   
+  
+  
+  
+  
+  
   export const downvoteAnswerController = async (req: Request, res: Response) => {
     try {
-      const { answer_id } = req.body;
+      const { answer_id, user_id } = req.body;
   
-      await DatabaseHelper.exec('downvoteAnswer', { answer_id });
+      const result = await DatabaseHelper.exec('DownvoteAnswer', {
+        answerId: answer_id,
+        userId: user_id,
+      });
   
-      res.status(200).json({ message: 'Answer downvoted successfully' });
+      if (result) {
+        res.status(200).json({ message: 'Answer downvoted successfully' });
+      } else {
+        res.status(400).json({ message: 'User has already downvoted' });
+      }
     } catch (error: any) {
       console.error('Error executing stored procedure:', error.message);
       res.status(500).json({ error: 'Internal server error' });

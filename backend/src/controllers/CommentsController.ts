@@ -30,16 +30,14 @@ export const insertCommentController = async (req: Request, res: Response) => {
 
 export const getAnswerCommentsController = async (req: Request<{ answer_id: string }>, res: Response) => {
     try {
-      const { answer_id } = req.body;
+      const { answer_id } = req.params;
 
       console.log(answer_id);
       
       
       const comments:Comment[] = await (await DatabaseHelper.exec('getAnswerCommentByAnswerId',{answer_id})).recordset
       
-      console.log(comments);
-      
-    
+      // console.log(comments);
       res.status(200).json(comments);
     } catch (error: any) {
       console.error('Error executing stored procedure:', error.message);
