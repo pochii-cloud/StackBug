@@ -43,12 +43,12 @@ const routes: Routes = [
     // component:AskQuestionComponent 
   },
   {
-    path:'question-detail',
+    path:'question-detail/:id',
     loadComponent:()=>import('../app/components/question-details/question-details.component').then(c=>c.QuestionDetailsComponent)
     // component:QuestionDetailsComponent 
   },
   {
-    path:'update-question',
+    path:'update-question/:id',
     loadComponent:()=>import('../app/components/update-question/update-question.component').then(c=>c.UpdateQuestionComponent)
     // component:UpdateQuestionComponent 
   },

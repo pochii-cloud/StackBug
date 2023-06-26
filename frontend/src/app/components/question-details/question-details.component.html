@@ -3,7 +3,7 @@
     <div class="question-detail-left-section"></div>
     <div class="topquestionsection">
       <div class="topquestiontag">
-        <h2>Installation Error with pycURL on Python in Ubuntu</h2>
+        <h2>{{question.title}}</h2>
       </div>
 
       <div class="askquestiobutton">
@@ -23,8 +23,8 @@
           </ul>
          </div>
  
-         <div class="right-section">
-           <div class="question-detail-card">
+         <div class="right-section" *ngIf="question.answers.length>0">
+           <div class="question-detail-card" *ngFor="let answer of question.answers">
              <div class="votes-section">
                 <ul>
                  <img src="../../../assets/icons/up.svg"/>
@@ -33,38 +33,30 @@
                 </ul> 
              </div>
              <div class="question-section">
-               This is the answer to Installation Error with pycURL on Python  
-               <a (click)="togglecommentform()" style="cursor: pointer;">add comment</a>
-               <form [formGroup]="commentform" *ngIf="showcommentform === true" style="display: flex;">
-                <textarea formControlName="comment"></textarea>
+              <h4>{{answer.answer}}</h4> 
+               <a  style="cursor: pointer;">add comment</a>
+              
+               <ul *ngIf="answer.comments && answer.comments.length > 0">
+                <li *ngFor="let comment of answer.comments">
+                  {{ comment.comment }}
+                </li>
+              </ul>
+                
+               <form [formGroup]="commentform" style="display: flex;" (ngSubmit)="postComment(answer)">
+                <textarea formControlName="comment" name="comment"></textarea>
                
                <div *ngIf="commentform.get('comment')?.invalid && (commentform.get('comment')?.dirty || commentform.get('comment')?.touched)">
                 <p class="err" *ngIf="commentform.get('comment')?.errors?.['required']">comment is required.</p>
               </div>
-              <img src="../../../assets/icons/comment.svg"/>
+              <button><img src="../../../assets/icons/comment.svg"/></button>
                </form>
              </div>
             
            </div>
           
-           <div class="question-detail-card">
-            <div class="votes-section">
-               <ul>
-                <img src="../../../assets/icons/up.svg"/>
-                <li>0</li>
-                <img src="../../../assets/icons/down.svg"/>
-               </ul> 
-            </div>
-            <div class="question-section">
-              This is the answer to Installation Error with pycURL on Python  
-              <a>add comment</a>
-             
-            </div>
-           
-          </div>
 
           <div class="post-answer">
-           <form [formGroup]="postanswerform">
+           <form [formGroup]="postanswerform" (ngSubmit)="postAnswer(question)">
             <textarea formControlName="answer">
             
             </textarea>
@@ -77,6 +69,25 @@
           </div>
 
          </div>
+         <div class="right-section" *ngIf="question.answers.length === 0">
+          <p>No answers available for this question.</p><br>
+  
+
+            
+          <div class="post-answer">
+            <h2>add answer below</h2>
+            <form [formGroup]="postanswerform" (ngSubmit)="postAnswer(question)">
+             <textarea formControlName="answer">
+             
+             </textarea>
+             <div *ngIf="postanswerform.get('answer')?.invalid && (postanswerform.get('answer')?.dirty || postanswerform.get('answer')?.touched)">
+               <p class="err" *ngIf="postanswerform.get('answer')?.errors?.['required']">answer is required.</p>
+             </div>
+ 
+             <button>Post Your Answer</button>
+            </form>
+           </div>
+        </div>
     </div>
  
  

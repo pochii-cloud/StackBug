@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import * as QuestionsActions from '../../state/actions/questionactions'
 
 @Component({
   selector: 'app-ask-question',
@@ -11,18 +13,50 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   styleUrls: ['./ask-question.component.css']
 })
 export class AskQuestionComponent implements OnInit {
-        askQestionForm!:FormGroup
+        askQuestionForm!:FormGroup
       
-      constructor( private fb:FormBuilder){}
+      constructor( private fb:FormBuilder,private store:Store,private router:Router){}
 
       ngOnInit(): void {
-          this.askQestionForm=this.fb.group({
+          this.askQuestionForm=this.fb.group({
              title:['',Validators.required],
              tags:['',Validators.required],
-             problem:['',Validators.required],
-             expectations:['',Validators.required]
+             description:['',Validators.required],
+             code:['',Validators.required]
           })
       }
 
+
+      onSubmit() {
+
+        // if (this.askQuestionForm.invalid) {
+        //   return;
+        // }
+    
+        // if(this.isUpdating)
+        // {
+    
+        //   this.store.dispatch(QuestionsActions.updateQuestion({...this.questionToUpdate, ...this.askQuestionForm.value}));
+        //   this.questionService.isQuestionUpdated = false;
+        //   this.askQuestionForm.reset();
+        //   this.router.navigate(['/questions']);
+        //   return;
+        // }
+    
      
+        this.store.dispatch(QuestionsActions.addQuestion({
+          id: '',
+          description: '',
+          code: '',
+          tags: '',
+          ...this.askQuestionForm.value
+        }));
+        
+
+        console.log(this.askQuestionForm.value)
+    
+        this.router.navigate(['/questions']);
+     
+      }
+
 }

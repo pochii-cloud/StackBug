@@ -1,6 +1,6 @@
 <div class="main">
     <div class="ask-question-form">
-        <form [formGroup]="updateQestionForm">
+        <form [formGroup]="updateQestionForm" (ngSubmit)="updateQuestion(question)">
           <h2>Update Question</h2>
           <label for="question-title">Title:</label>
           <input type="text"  placeholder="enter question title" id="question-title" formControlName="title"/>
@@ -17,17 +17,17 @@
             <p class="err" *ngIf="updateQestionForm.get('tags')?.errors?.['required']">tags are required.</p>
           </div>
   
-          <label for="question-problem">Problem Description:</label>
-          <textarea id="question-problem" formControlName="problem"></textarea>
-          <div *ngIf="updateQestionForm.get('problem')?.invalid && (updateQestionForm.get('problem')?.dirty || updateQestionForm.get('problem')?.touched)">
-            <p class="err" *ngIf="updateQestionForm.get('problem')?.errors?.['required']">description is required.</p>
+          <label for="description">Problem Description:</label>
+          <textarea id="description" formControlName="description"></textarea>
+          <div *ngIf="updateQestionForm.get('description')?.invalid && (updateQestionForm.get('description')?.dirty || updateQestionForm.get('description')?.touched)">
+            <p class="err" *ngIf="updateQestionForm.get('description')?.errors?.['required']">description is required.</p>
           </div>
           
-          <label for="question-expectations">What you tried and you were expecting:</label>
-          <textarea id="question-expectations" formControlName="expectations"></textarea>
+          <label for="code">What you tried and you were expecting:</label>
+          <textarea id="code" formControlName="code"></textarea>
            
-          <div *ngIf="updateQestionForm.get('expectations')?.invalid && (updateQestionForm.get('expectations')?.dirty || updateQestionForm.get('expectations')?.touched)">
-            <p class="err" *ngIf="updateQestionForm.get('expectations')?.errors?.['required']">field is required.</p>
+          <div *ngIf="updateQestionForm.get('code')?.invalid && (updateQestionForm.get('code')?.dirty || updateQestionForm.get('code')?.touched)">
+            <p class="err" *ngIf="updateQestionForm.get('code')?.errors?.['required']">field is required.</p>
           </div>
   
           <button [disabled]="updateQestionForm.invalid">Update Question</button>

@@ -44,7 +44,7 @@ const insertAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, f
             id,
             answer,
             created_at,
-            user_id,
+            user_id: '405137fe-8ab5-4682-815a-ca91b8f406c2',
             question_id
         });
         res.status(200).json({ message: 'Answer inserted successfully' });
@@ -76,15 +76,16 @@ exports.getAnswerByIdController = getAnswerByIdController;
 const upvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { answer_id, user_id } = req.body;
-        const result = yield helpers_1.DatabaseHelper.exec('UpvoteAnswer', {
+        const result = yield (yield helpers_1.DatabaseHelper.exec('UpvoteAnswer', {
             answerId: answer_id,
             userId: user_id,
-        });
-        if (result) {
-            res.status(200).json({ message: 'Upvote successful' });
+        })).recordset;
+        if (result && result.length > 0) {
+            res.status(200).json({ message: 'Upvote already done' });
         }
         else {
-            res.status(500).json({ error: 'Invalid response from the database' });
+            console.log(result, 'this is result');
+            res.status(200).json({ message: 'Upvote successfull' });
         }
     }
     catch (error) {

@@ -1,14 +1,14 @@
-import express from 'express'
+import { Router } from 'express'
 import { deleteQuestion, getAllQuestions, getQuestionById, insertQuestion,updateQuestion,getQuestionsByUserId,getQuestionsByAnswerCountController } from '../controllers/QuestionController'
 import { verifyLogin } from '../middleware/verifylogin'
 
-export const questionroute=express()
+export const questionroute=Router()
 
-questionroute.get('/questionslist',verifyLogin,getAllQuestions)
-questionroute.post('/add-question',verifyLogin,insertQuestion)
-questionroute.get('/question-details/:id',getQuestionById)
-questionroute.put('/update-question/:id',updateQuestion)
-questionroute.get('/question-by-userId/:id',getQuestionsByUserId)
-questionroute.get('/top-questions',getQuestionsByAnswerCountController)
+questionroute.get('/questionslist',getAllQuestions)
+questionroute.post('/add-question',insertQuestion)
+questionroute.get('/question-details/:id',verifyLogin,getQuestionById)
+questionroute.put('/update-question/:id',verifyLogin,updateQuestion)
+questionroute.get('/question-by-userId/:id',verifyLogin,getQuestionsByUserId)
+questionroute.get('/top-questions',verifyLogin,getQuestionsByAnswerCountController)
 questionroute.delete('/delete-question/:id',deleteQuestion)
 

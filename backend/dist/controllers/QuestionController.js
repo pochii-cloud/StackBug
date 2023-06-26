@@ -29,15 +29,24 @@ const getAllQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function
                     // Add more fields as needed
                 };
             });
-            res.status(200).json({ questions });
+            const reversedQuestions = questions.reverse();
+            for (const question of reversedQuestions) {
+                const answersResult = yield helpers_1.DatabaseHelper.exec('getAnswersByQuestionId', { id: question.id });
+                question.answers = answersResult.recordsets[0];
+                for (const answer of question.answers) {
+                    const comments = yield helpers_1.DatabaseHelper.exec('getAnswerCommentByAnswerId', { answer_id: answer.id });
+                    answer.comments = comments.recordsets[0];
+                }
+            }
+            res.status(200).json(reversedQuestions);
         }
         else {
-            res.status(200).json({ questions: [] });
+            res.status(200).json('No questions in array');
         }
     }
     catch (error) {
         console.error('Error executing stored procedure:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: error + 'error in fetching' });
     }
 });
 exports.getAllQuestions = getAllQuestions;
@@ -62,11 +71,11 @@ exports.getQuestionById = getQuestionById;
 const insertQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = (0, uuid_1.v4)();
-        const { title, userId, description, code, tags } = req.body;
+        const { title, user_id, description, code, tags } = req.body;
         yield helpers_1.DatabaseHelper.exec('insertQuestion', {
             id,
             title,
-            user_id: userId,
+            user_id: '04a2bd4f-0077-4ad2-bc57-2d18d978fb96',
             description,
             code,
             tags

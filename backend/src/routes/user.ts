@@ -1,7 +1,7 @@
-import express from 'express'
+import  { Router } from 'express'
 import { deleteUser, getAllUsersController, getSingleUser, loginUser, registerusercontroller } from '../controllers/UserController'
 
-export const userroute=express()
+export const userroute=Router()
 
 userroute.post('/adduser',registerusercontroller)
 userroute.get('/getusers',getAllUsersController)

@@ -9,36 +9,36 @@
 
     </div>
     <div class="ask-question-form">
-      <form [formGroup]="askQestionForm">
+      <form [formGroup]="askQuestionForm" (ngSubmit)="onSubmit()">
         <h2>Ask A Question</h2>
         <label for="question-title">Title:</label>
         <input type="text"  placeholder="enter question title" id="question-title" formControlName="title"/>
         
         
-        <div *ngIf="askQestionForm.get('title')?.invalid && (askQestionForm.get('title')?.dirty || askQestionForm.get('title')?.touched)">
-          <p class="err" *ngIf="askQestionForm.get('title')?.errors?.['required']">title is required.</p>
+        <div *ngIf="askQuestionForm.get('title')?.invalid && (askQuestionForm.get('title')?.dirty || askQuestionForm.get('title')?.touched)">
+          <p class="err" *ngIf="askQuestionForm.get('title')?.errors?.['required']">title is required.</p>
         </div>
 
         <label for="question-tag">Tags:</label>
         <input type="text"  placeholder="enter question tag eg.python" id="question-tag" formControlName="tags"/>
         
         
-        <div *ngIf="askQestionForm.get('tags')?.invalid && (askQestionForm.get('tags')?.dirty || askQestionForm.get('tags')?.touched)">
-          <p class="err" *ngIf="askQestionForm.get('tags')?.errors?.['required']">tags are required.</p>
+        <div *ngIf="askQuestionForm.get('tags')?.invalid && (askQuestionForm.get('tags')?.dirty || askQuestionForm.get('tags')?.touched)">
+          <p class="err" *ngIf="askQuestionForm.get('tags')?.errors?.['required']">tags are required.</p>
         </div>
 
 
-        <label for="question-problem">Problem Description:</label>
-        <textarea id="question-problem" formControlName="problem"></textarea>
-        <div *ngIf="askQestionForm.get('problem')?.invalid && (askQestionForm.get('problem')?.dirty || askQestionForm.get('problem')?.touched)">
-          <p class="err" *ngIf="askQestionForm.get('problem')?.errors?.['required']">description is required.</p>
+        <label for="description">Problem Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+        <div *ngIf="askQuestionForm.get('description')?.invalid && (askQuestionForm.get('description')?.dirty || askQuestionForm.get('description')?.touched)">
+          <p class="err" *ngIf="askQuestionForm.get('description')?.errors?.['required']">description is required.</p>
         </div>
         
-        <label for="question-expectations">What you tried and you were expecting:</label>
-        <textarea id="question-expectations" formControlName="expectations"></textarea>
+        <label for="code">What you tried and you were expecting:</label>
+        <textarea id="code" formControlName="code"></textarea>
          
-        <div *ngIf="askQestionForm.get('expectations')?.invalid && (askQestionForm.get('expectations')?.dirty || askQestionForm.get('expectations')?.touched)">
-          <p class="err" *ngIf="askQestionForm.get('expectations')?.errors?.['required']">field is required.</p>
+        <div *ngIf="askQuestionForm.get('code')?.invalid && (askQuestionForm.get('code')?.dirty || askQuestionForm.get('code')?.touched)">
+          <p class="err" *ngIf="askQuestionForm.get('code')?.errors?.['required']">field is required.</p>
         </div>
 
 

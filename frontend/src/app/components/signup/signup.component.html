@@ -2,7 +2,7 @@
 
     <div class="signin">
         
-        <form [formGroup]="signupform">
+        <form [formGroup]="signupform" (ngSubmit)="onSubmit()">
           <h1>Sign Up</h1>
             <label for="username">Username:</label>
         <input type="text" placeholder="enter username" formControlName="username" />

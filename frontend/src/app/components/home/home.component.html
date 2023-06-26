@@ -30,7 +30,7 @@
       </div>
 
       <div class="right-section">
-        <div class="question-card">
+        <div class="question-card" *ngFor="let question of questions">
           <div class="votes-section">
              <ul>
               <li>1 votes</li>
@@ -38,7 +38,8 @@
              </ul> 
           </div>
           <div class="question-section">
-            <h2 routerLink="/question-detail">Installation Error with pycURL on Python in Ubuntu </h2>
+            <h2 [routerLink]="['/question-detail',question.id]">{{question.title}} </h2>
+            <a [routerLink]="['/update-question', question.id]">update question</a>
             <div class="question-section-tags">
              <div class="tags">
                 <p>python1</p>
@@ -51,48 +52,13 @@
           </div>
          
         </div>
-        <div class="question-card">
-          <div class="votes-section">
-             <ul>
-              <li>1 votes</li>
-              <li>2 answers</li>
-             </ul> 
-          </div>
-          <div class="question-section">
-            <h2 routerLink="/question-detail">Installation Error with pycURL on Python in Ubuntu </h2>
-            <div class="question-section-tags">
-             <div class="tags">
-                <p>python1</p>
-              <p>pycURL</p>
-             </div>
-              <div class="user">
-                <span>@John M</span>
-              </div>
-            </div>
-          </div>
-         
-        </div>
-        <div class="question-card">
-          <div class="votes-section">
-             <ul>
-              <li>1 votes</li>
-              <li>2 answers</li>
-             </ul> 
-          </div>
-          <div class="question-section">
-            <h2 routerLink="/question-detail">Installation Error with pycURL on Python in Ubuntu </h2>
-            <div class="question-section-tags">
-             <div class="tags">
-                <p>python1</p>
-              <p>pycURL</p>
-             </div>
-              <div class="user">
-                <span>@John</span>
-              </div>
-            </div>
-          </div>
-         
-        </div>
+
+        <div class="pagination">
+          <button  (click)="onPageChange(currentPage - 1)">Previous</button>
+  
+          <!-- <button *ngFor="let page of pages" (click)="onPageChange(page)" [class.active]="page === currentPage">{{page}}</button> -->
+          <button  (click)="onPageChange(currentPage + 1)">Next</button>
+      </div>
       </div>
  </div>
 
