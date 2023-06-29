@@ -1,6 +1,6 @@
 <div class="main">
     <div class="login">
-          <form #myForm="ngForm" (ngSubmit)="submitForm(myForm)">
+          <form #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
               <h1>Login</h1>
              
               <label for="email">Email</label>
@@ -15,7 +15,8 @@
               <div class="err" *ngIf="myForm.controls['password']?.invalid && (myForm.controls['password']?.dirty || myForm.controls['password']?.touched)">
                 <div class="err" *ngIf="myForm.controls['password'].errors?.['required']">Password is required.</div>
               </div>
-         
+             
+              <div class="err" *ngIf="error">{{error.error.message}}</div>
             
             <button type="submit" [disabled]="myForm.invalid">Submit</button>
             <p>Don't have an account? <a routerLink="/signup">create account</a></p>

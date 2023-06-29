@@ -5,5 +5,7 @@ CREATE TABLE USERDB (
     password VARCHAR(200),
     isAdmin INT NOT NULL DEFAULT 0,
     isSent INT NOT NULL DEFAULT 0,
-    resetSuccess INT NOT NULL DEFAULT 0
+    resetSuccess INT NOT NULL DEFAULT 0,
+    is_deleted BIT NOT NULL DEFAULT 0;
 );
+

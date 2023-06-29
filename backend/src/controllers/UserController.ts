@@ -122,10 +122,31 @@ export const loginUser = async (req: Request<{ email: string; password: string }
       const payload = rest;
       console.log(payload)
       const token = jwt.sign(payload,'ttttweywastring' as string,{expiresIn:'360000s'})
-      return res.json({mesage:"Login Successfull!!",token, role:user.isAdmin,username:user.username}).status(200)
+      return res.json({mesage:"Login Successfull!!",token, role:user.isAdmin,username:user.username,id:user.id}).status(200)
     } catch (error: any) {
       res.status(500).json(error.message);
     }
   };
-  
+
+
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const { username, email,id} = req.body;
+
+    const data = {
+      id,
+      username,
+      email
+    };
+
+    // Execute the stored procedure
+    await DatabaseHelper.exec('UpdateUser', data);
+
+    res.status(200).json({ message: 'User updated successfully' });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 

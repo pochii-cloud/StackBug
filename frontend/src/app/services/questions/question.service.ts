@@ -36,7 +36,9 @@ export class QuestionService {
   addAnswer(answer: Answer): Observable<Answer> {
     return this.http.post<Answer>('http://localhost:5000/answers/add-answer', answer);
   }
-
+  updateAnswer(answer: Answer): Observable<Answer> {
+    return this.http.post<Answer>(`http://localhost:5000/answers/answer-accepted/${answer.id}`, answer);
+  }
 
   addComment(comment:Comment): Observable<Comment> {
     return this.http.post<Comment>('http://localhost:5000/comments/add-comment', comment);

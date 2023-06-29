@@ -13,7 +13,7 @@ export const insertCommentController = async (req: Request, res: Response) => {
     await DatabaseHelper.exec('insertComment', {
       id,
       comment,
-      user_id:'04a2bd4f-0077-4ad2-bc57-2d18d978fb96',
+      user_id,
       answer_id
     });
 

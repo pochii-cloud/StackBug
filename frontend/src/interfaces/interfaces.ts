@@ -5,6 +5,7 @@ export interface Answer {
     question_id: string;
     is_accepted?:string
     comments?:Comment[]
+    
   }
 
 export interface Comment {
@@ -18,6 +19,7 @@ export interface Question {
   id: string;
   title: string;
   user_id?: string;
+  user?:User
   description: string;
   code: string;
   tags: string;
@@ -26,9 +28,17 @@ export interface Question {
 
 export interface User{
   id:string
-  name:string
+  username:string
   email:string
   password:string
+}
+
+export interface profile{
+  id:string
+  username:string
+  email:string
+  password:string
+  role:string
 }
 
 export interface UserToRegister{
@@ -45,7 +55,7 @@ export interface userToLogin {
 
 export interface loggedInUser {
   user?: User[];
-  is_admin?: string;
+  isAdmin?: string;
   id: string;
   username: string;
   email: string;
@@ -55,7 +65,10 @@ export interface loggedInUser {
 
 export interface AnswerVote{
   id:string
-  vote:Number
   answer_id:string
   user_id:string
+  votes:number
+  user?: User;
+  upvote:boolean;
+  downvote:boolean; 
 }

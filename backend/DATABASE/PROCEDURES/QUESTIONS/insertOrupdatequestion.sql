@@ -17,8 +17,7 @@ CREATE OR ALTER PROCEDURE UpdateQuestion
     @title VARCHAR(255),
     @description VARCHAR(255),
     @code VARCHAR(255),
-    @tags VARCHAR(255),
-    @views INT
+    @tags VARCHAR(255)
 AS
 BEGIN
     UPDATE QUESTIONS
@@ -26,7 +25,6 @@ BEGIN
         description = @description,
         code = @code,
         tags = @tags,
-        views = @views,
         updated_at = GETDATE()
     WHERE id = @id;
 END;

@@ -27,13 +27,15 @@
            <div class="question-detail-card" *ngFor="let answer of question.answers">
              <div class="votes-section">
                 <ul>
-                 <img src="../../../assets/icons/up.svg"/>
-                 <li>0</li>
-                 <img src="../../../assets/icons/down.svg"/>
+                 <img src="../../../assets/icons/up.svg" (click)="upvote(answer)"/>
+                 <li>{{getVoteCount(answer.id)}}</li>
+                 <img src="../../../assets/icons/down.svg" (click)="downvote(answer)"/>
                 </ul> 
              </div>
              <div class="question-section">
-              <h4>{{answer.answer}}</h4> 
+              <h4 >{{answer.answer}}</h4> 
+              <a (click)="markAccepted(answer)" style="cursor:pointer;">mark accepted</a>
+              <h6>{{answer.is_accepted?'accepted':'not accepted'}}</h6>
                <a  style="cursor: pointer;">add comment</a>
               
                <ul *ngIf="answer.comments && answer.comments.length > 0">

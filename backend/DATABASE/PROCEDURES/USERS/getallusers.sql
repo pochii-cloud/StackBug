@@ -4,5 +4,5 @@ AS
 BEGIN
 
 SELECT * FROM USERDB 
-
+WHERE is_deleted=0
 END

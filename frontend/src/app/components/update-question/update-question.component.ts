@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectQuestions } from 'src/app/state/selectors/questions.selectors';
+import { selectQuestionById, selectQuestions } from 'src/app/state/selectors/questions.selectors';
 import { Question } from 'src/interfaces/interfaces';
 import { QuestionService } from 'src/app/services/questions/question.service';
-
+import * as QuestionActions from '../../state/actions/questionactions'
 @Component({
   selector: 'app-update-question',
   standalone: true,
@@ -21,9 +21,9 @@ export class UpdateQuestionComponent implements OnInit{
   ngOnInit(): void {
 
     this.route.params.subscribe((param)=>{
-      this.store.select(selectQuestions).subscribe((questions)=>{
-         this.question=questions.find(q=>q.id == param['id']) as Question
-         console.log(this.question ,'update this')
+     this.store.select(selectQuestionById(param['id'])).subscribe((question) => {
+      this.question = question as Question;
+      console.log(this.question, 'update this');
       })
    })
     
@@ -37,6 +37,8 @@ export class UpdateQuestionComponent implements OnInit{
   }
 
   updateQuestion(question :Question) {
+
+    this.store.dispatch(QuestionActions.updateQuestion({...this.question, ...this.updateQestionForm.value}));
     this.questionService.updateQuestion(question);
     this.router.navigate(['/questions']);
   }

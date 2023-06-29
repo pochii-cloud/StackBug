@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setAnswerAsAccepted = exports.downvoteAnswerController = exports.upvoteAnswerController = exports.getAnswerByIdController = exports.insertAnswerController = exports.getAnswersByQuestionIdController = exports.getAllAnswersController = void 0;
+exports.setAnswerAsAccepted = exports.downvoteAnswerController = exports.upvoteAnswerController = exports.getallanswervotes = exports.getAnswerByIdController = exports.insertAnswerController = exports.getAnswersByQuestionIdController = exports.getAllAnswersController = void 0;
 const helpers_1 = require("../helpers");
 const uuid_1 = require("uuid");
 const getAllAnswersController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,7 +44,7 @@ const insertAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, f
             id,
             answer,
             created_at,
-            user_id: '405137fe-8ab5-4682-815a-ca91b8f406c2',
+            user_id,
             question_id
         });
         res.status(200).json({ message: 'Answer inserted successfully' });
@@ -73,6 +73,18 @@ const getAnswerByIdController = (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.getAnswerByIdController = getAnswerByIdController;
+const getallanswervotes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield helpers_1.DatabaseHelper.exec('getAllAnswerVotes', {});
+        const votes = result.recordset;
+        res.json(votes);
+    }
+    catch (error) {
+        console.error('Error executing stored procedure:', error);
+        res.status(500).json({ error: error });
+    }
+});
+exports.getallanswervotes = getallanswervotes;
 const upvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { answer_id, user_id } = req.body;
@@ -81,11 +93,10 @@ const upvoteAnswerController = (req, res) => __awaiter(void 0, void 0, void 0, f
             userId: user_id,
         })).recordset;
         if (result && result.length > 0) {
-            res.status(200).json({ message: 'Upvote already done' });
+            res.status(200).json({ message: 'Answer upvoted successfully' });
         }
         else {
-            console.log(result, 'this is result');
-            res.status(200).json({ message: 'Upvote successfull' });
+            res.status(400).json({ message: 'User has already downvoted' });
         }
     }
     catch (error) {

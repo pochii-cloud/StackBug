@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.deleteUser = exports.getSingleUser = exports.getAllUsersController = exports.registerusercontroller = void 0;
+exports.updateUser = exports.loginUser = exports.deleteUser = exports.getSingleUser = exports.getAllUsersController = exports.registerusercontroller = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const uuid_1 = require("uuid");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -113,10 +113,28 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const payload = rest;
         console.log(payload);
         const token = jsonwebtoken_1.default.sign(payload, 'ttttweywastring', { expiresIn: '360000s' });
-        return res.json({ mesage: "Login Successfull!!", token, role: user.isAdmin, username: user.username }).status(200);
+        return res.json({ mesage: "Login Successfull!!", token, role: user.isAdmin, username: user.username, id: user.id }).status(200);
     }
     catch (error) {
         res.status(500).json(error.message);
     }
 });
 exports.loginUser = loginUser;
+const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { username, email, id } = req.body;
+        const data = {
+            id,
+            username,
+            email
+        };
+        // Execute the stored procedure
+        yield index_1.DatabaseHelper.exec('UpdateUser', data);
+        res.status(200).json({ message: 'User updated successfully' });
+    }
+    catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.updateUser = updateUser;

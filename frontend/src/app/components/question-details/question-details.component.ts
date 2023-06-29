@@ -4,8 +4,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectQuestions } from 'src/app/state/selectors/questions.selectors';
 import { Store } from '@ngrx/store';
-import { Answer, Question,Comment } from 'src/interfaces/interfaces';
+import { Answer, Question,Comment, AnswerVote } from 'src/interfaces/interfaces';
 import * as QuestionsActions from  '../../state/actions/questionactions'
+import * as AnswerVoteActions from '../../state/actions/AnswerVotes.actions'
+import { LoginService } from 'src/app/services/login/login.service';
+import { selectAnswerVotes } from 'src/app/state/selectors/answervote.selector';
 
 @Component({
   selector: 'app-question-details',
@@ -18,9 +21,10 @@ export class QuestionDetailsComponent implements OnInit {
    postanswerform!:FormGroup
    showcommentform=false
    commentform!:FormGroup
+   votes!:AnswerVote[]
 
    question!:Question
-    constructor( private fb:FormBuilder,private route:ActivatedRoute,private store:Store,private router:Router){}
+    constructor( private fb:FormBuilder,private route:ActivatedRoute,private store:Store,private router:Router,private loginService:LoginService){}
 
       ngOnInit(): void {
         this.route.params.subscribe((param)=>{
@@ -29,7 +33,16 @@ export class QuestionDetailsComponent implements OnInit {
              console.log(this.question)
 
           })
+          this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 50}));
        })
+      
+
+       this.store.dispatch(AnswerVoteActions.loadAnswerVotes())
+       this.store.select(selectAnswerVotes).subscribe(answersvote=>{
+          this.votes=answersvote
+       })
+
+       
 
 
          this.postanswerform=this.fb.group({
@@ -51,7 +64,7 @@ export class QuestionDetailsComponent implements OnInit {
         answer = {
           id: ' ',
           answer: this.postanswerform.value.answer,
-          user_id: ' ',
+          user_id: this.loginService.getloggedinuserid() ,
           comments:[],
           question_id: this.question.id
         }
@@ -68,7 +81,7 @@ export class QuestionDetailsComponent implements OnInit {
           id: ' ',
           comment: this.commentform.value.comment,
           answer_id: answer.id,
-          user_id: ''
+          user_id: this.loginService.getloggedinuserid()
         }
     
         this.store.dispatch(QuestionsActions.addComment(comment))
@@ -76,7 +89,41 @@ export class QuestionDetailsComponent implements OnInit {
         this.router.navigate(['/questions'])
       }
 
+      markAccepted(answer: Answer) {
+        this.store.dispatch(QuestionsActions.updateAnswer({ ...answer}))
+      }
 
+      upvote(answer: Answer) {
+        const voteCount = this.getVoteCount(answer.id);
+        const answerVote: AnswerVote = {
+          id: '',
+          answer_id: answer.id,
+          user_id: this.loginService.getloggedinuserid(),
+          votes: voteCount + 1, // Increment the vote count by 1
+          upvote: true,
+          downvote: false
+        };
+        this.store.dispatch(AnswerVoteActions.upVoteAnswer(answerVote));
+      }
+      
+      downvote(answer: Answer) {
+        const voteCount = this.getVoteCount(answer.id);
+        const answerVote: AnswerVote = {
+          id: '',
+          answer_id: answer.id,
+          user_id: this.loginService.getloggedinuserid(),
+          votes: voteCount - 1, // Decrement the vote count by 1
+          upvote: false,
+          downvote: true
+        };
+        this.store.dispatch(AnswerVoteActions.downVoteAnswer(answerVote));
+      }
+      
+      getVoteCount(answerId: string): number {
+        const answerVotes = this.votes.filter(vote => vote.answer_id === answerId);
+        return answerVotes.reduce((total, vote) => total + (vote.upvote ? 1 : -1), 0);
+      }
+      
 
 }
 

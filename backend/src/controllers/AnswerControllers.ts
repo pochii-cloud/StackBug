@@ -38,7 +38,7 @@ export const getAllAnswersController: RequestHandler = async (req, res) => {
         id,
         answer,
         created_at,
-        user_id:'405137fe-8ab5-4682-815a-ca91b8f406c2',
+        user_id,
         question_id
       });
   
@@ -70,7 +70,18 @@ export const getAllAnswersController: RequestHandler = async (req, res) => {
     }
   };
   
-   
+  export const getallanswervotes=async (req: Request, res: Response) => {
+
+    try {
+      const result = await DatabaseHelper.exec('getAllAnswerVotes', {});
+  
+      const votes = result.recordset;
+      res.json(votes);
+    } catch (error) {
+      console.error('Error executing stored procedure:', error);
+      res.status(500).json({ error: error });
+    }
+  }
 
   
   export const upvoteAnswerController = async (req: Request, res: Response) => {
@@ -83,11 +94,9 @@ export const getAllAnswersController: RequestHandler = async (req, res) => {
       })).recordset
   
       if (result && result.length>0) {
-        
-        res.status(200).json({ message: 'Upvote already done' });
+        res.status(200).json({ message: 'Answer upvoted successfully' });
       } else {
-        console.log(result,'this is result')
-        res.status(200).json({ message: 'Upvote successfull' });
+        res.status(400).json({ message: 'User has already downvoted' });
       }
     } catch (error: any) {
       console.error('Error executing stored procedure:', error.message);

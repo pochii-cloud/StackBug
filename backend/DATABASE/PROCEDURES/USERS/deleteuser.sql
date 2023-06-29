@@ -3,5 +3,8 @@ CREATE OR ALTER PROCEDURE deleteUser(
   )
 AS 
 BEGIN
-   DELETE FROM USERDB WHERE id=@id
+UPDATE USERDB 
+SET is_deleted=1
+    WHERE id=@id
+
 END

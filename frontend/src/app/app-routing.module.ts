@@ -12,6 +12,7 @@ import { UpdateQuestionComponent } from './components/update-question/update-que
 import { AdminComponent } from './components/admin/admin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
+import { CanActivateService } from './services/canActivate/can-activate.service';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
     // component: LandingComponent,
   },
   {
-    path: 'questions',loadComponent:()=>import('../app/components/home/home.component').then(c=>c.HomeComponent)
+    path: 'questions',loadComponent:()=>import('../app/components/home/home.component').then(c=>c.HomeComponent),canActivate:[CanActivateService]
   },
   {
     path:'login',
@@ -30,7 +31,6 @@ const routes: Routes = [
   {
     path:'signup',
     loadComponent:()=>import('../app/components/signup/signup.component').then(c=>c.SignupComponent)
-    // component:SignupComponent 
   },
   {
     path:'profile',

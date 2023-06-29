@@ -20,3 +20,20 @@ BEGIN
   )
 
 END
+
+
+CREATE PROCEDURE UpdateUser
+    @id VARCHAR(100),
+    @username VARCHAR(200),
+    @email VARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE USERDB
+    SET
+        username = @username,
+        email = @email
+    WHERE
+        id = @id;
+END

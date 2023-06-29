@@ -21,8 +21,10 @@ export const getAllQuestions = async (req: Request, res: Response) => {
         return {
           id: row.id,
           title: row.title,
-          description: row.description
-          // Add more fields as needed
+          description: row.description,
+          user_id:row.user_id,
+          tags:row.tags,
+          code:row.code
         };
       });
       const reversedQuestions = questions.reverse();
@@ -78,12 +80,12 @@ export const getQuestionById = async (req: Request, res: Response) => {
 export const insertQuestion = async (req: Request, res: Response) => {
   try {
     const id = uid();
-    const { title, user_id, description, code, tags } = req.body;
+    const { title,user_id, description, code, tags } = req.body;
 
     await DatabaseHelper.exec('insertQuestion', {
       id,
       title,
-      user_id:'04a2bd4f-0077-4ad2-bc57-2d18d978fb96',
+      user_id,
       description,
       code,
       tags
@@ -108,14 +110,13 @@ export const updateQuestion = async (req: Request<{ id: string }>, res: Response
       title,
       description,
       code,
-      tags,
-      views
+      tags
     });
 
     res.status(200).json({ message: 'Question updated successfully' });
   } catch (error: any) {
     console.error('Error executing stored procedure:', error.message);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: error.message });
   }
 };
 

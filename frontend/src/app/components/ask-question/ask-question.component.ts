@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as QuestionsActions from '../../state/actions/questionactions'
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-ask-question',
@@ -15,7 +16,7 @@ import * as QuestionsActions from '../../state/actions/questionactions'
 export class AskQuestionComponent implements OnInit {
         askQuestionForm!:FormGroup
       
-      constructor( private fb:FormBuilder,private store:Store,private router:Router){}
+      constructor( private fb:FormBuilder,private store:Store,private router:Router,private loginService:LoginService){}
 
       ngOnInit(): void {
           this.askQuestionForm=this.fb.group({
@@ -49,6 +50,7 @@ export class AskQuestionComponent implements OnInit {
           description: '',
           code: '',
           tags: '',
+          user_id:this.loginService.getloggedinuserid(),
           ...this.askQuestionForm.value
         }));
         

@@ -12,3 +12,12 @@ CREATE TABLE ANSWERS
     CONSTRAINT FK_answers_user_id_users_id FOREIGN KEY (user_id) REFERENCES USERDB(id) ON DELETE CASCADE,
     
 );
+
+ALTER TABLE ANSWERS
+DROP CONSTRAINT IF EXISTS FK_answers_question_id_questions_id; -- Drop existing foreign key constraint if it exists
+
+ALTER TABLE ANSWERS
+ADD CONSTRAINT FK_answers_question_id_questions_id
+FOREIGN KEY (question_id)
+REFERENCES questions(id)
+ON DELETE CASCADE;

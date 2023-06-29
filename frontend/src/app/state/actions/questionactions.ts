@@ -41,6 +41,17 @@ export const deleteQuestion = createAction(
     (question: Question) => ({ question })
 );
 
+export const deleteQuestionSuccess = createAction(
+    '[Questions] Delete Question Success',
+    (question: Question) => ({ question })
+);
+
+export const deleteQuestionFailure = createAction(
+    '[Questions] Delete Question Failure',
+    (error: any) => ({ error })
+); 
+
+
 
 export const updateQuestion = createAction(
     '[Questions] Update Question',
@@ -57,17 +68,22 @@ export const updateQuestionFailure = createAction(
     (error: any) => ({ error })
 );
 
-
-
-export const deleteQuestionSuccess = createAction(
-    '[Questions] Delete Question Success',
-    (question: Question) => ({ question })
+export const updateAnswer = createAction(
+    '[Questions] Update Answer',
+    (answer: Answer) => ({ answer })
 );
 
-export const deleteQuestionFailure = createAction(
-    '[Questions] Delete Question Failure',
+export const updateAnswerSuccess = createAction(
+    '[Questions] Update Answer Success',
+    (answer: Answer) => ({ answer })
+);
+
+export const updateAnswerFailure = createAction(
+    '[Questions] Update Answer Failure',
     (error: any) => ({ error })
 );
+
+
 
 
 

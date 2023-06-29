@@ -16,6 +16,7 @@ export const initialState: QuestionsState = {
 };
 
 
+
 export const questionsReducer = createReducer(
     initialState,
     on(QuestionsActions.loadQuestions, (state) => {
@@ -64,6 +65,20 @@ export const questionsReducer = createReducer(
         }
     }
     ),
+
+    on(QuestionsActions.updateQuestion, (state) => ({ ...state, loading: true })),
+    on(QuestionsActions.updateQuestionSuccess, (state, { question }) => ({
+      ...state,
+      loading: false,
+      questions: state.questions.map((q: Question) => {
+        if (q.id === question.id) {
+          return { ...q, ...question };
+        }
+        return q;
+      })
+    })),
+    on(QuestionsActions.updateQuestionFailure, (state, { error }) => ({ ...state, loading: false, error })),
+
 
 
     on(QuestionsActions.deleteQuestion, (state, { question }) => {
@@ -132,7 +147,46 @@ export const questionsReducer = createReducer(
     ),
 
 
+    on(QuestionsActions.updateAnswer, (state, {answer}) => {
+        return {
+            ...state,
+            loading: true
+        }
+    }
 
+    ),
+
+    on(QuestionsActions.updateAnswerSuccess, (state, {answer}) => {
+        return {
+            ...state,
+            loading: false,
+            questions: state.questions.map((q: Question) => {
+                q.answers.map((a: Answer) => {
+                    if (a.id === answer.id) {
+                        return {
+                            ...a,
+                            answer: answer.answer
+                        }
+                    }
+                    return a;
+                }
+                )
+                return q;
+            })
+        }
+    }
+
+    ),
+
+    on(QuestionsActions.updateAnswerFailure, (state, {error}) => {
+        return {
+            ...state,
+            loading: false,
+            error
+        }
+    }
+
+    ),
 
 
 
