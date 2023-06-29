@@ -3,7 +3,8 @@ import { DatabaseHelper } from '../helpers';
 import {v4 as uid} from 'uuid'
 import { sqlConfig } from '../config';
 import mssql from 'mssql'
-import { Question } from '../interfaces/interfaces';
+import { Answer, Question } from '../interfaces/interfaces';
+
 
 export const getAllQuestions = async (req: Request, res: Response) => {
   const { page, pageSize } = req.query;
@@ -14,36 +15,35 @@ export const getAllQuestions = async (req: Request, res: Response) => {
       pageSize: parseInt(String(pageSize), 10)
     };
 
-    const result: any = await DatabaseHelper.exec('getAllQuestions', data);
+    const result: Question[] = await(await DatabaseHelper.exec('getAllQuestions', data)).recordset;
 
-    if (result && result.recordsets.length > 0) {
-      const questions = result.recordsets[0].map((row: any) => {
-        return {
+    if (result && result.length > 0) {
+      const questions: Question[] = result.map((row: any) => {
+        const question: Question = {
           id: row.id,
           title: row.title,
           description: row.description,
-          user_id:row.user_id,
-          tags:row.tags,
-          code:row.code
+          user_id: row.user_id,
+          tags: row.tags,
+          code: row.code,
+          answers: [],
+          comments: []
         };
+        return question;
       });
+
       const reversedQuestions = questions.reverse();
-      
+
       for (const question of reversedQuestions) {
-        const answersResult: any = await DatabaseHelper.exec('getAnswersByQuestionId', { id: question.id });
-        question.answers = answersResult.recordsets[0];
+        const answersResult: Answer[] = await(await DatabaseHelper.exec('getAnswersByQuestionId', { id: question.id })).recordset;
+        question.answers = answersResult;
 
-
-        for( const answer of question.answers){
-           const comments:any=await DatabaseHelper.exec('getAnswerCommentByAnswerId', { answer_id: answer.id }); 
-           answer.comments=comments.recordsets[0]
-           
-
+        for (const answer of question.answers) {
+          const commentsResult: any[] =await( await DatabaseHelper.exec('getAnswerCommentByAnswerId', { answer_id: answer.id })).recordset;
+          answer.comments = commentsResult;
         }
       }
 
-      
-      
       res.status(200).json(reversedQuestions);
     } else {
       res.status(200).json('No questions in array');
@@ -53,6 +53,7 @@ export const getAllQuestions = async (req: Request, res: Response) => {
     res.status(500).json({ error: error + 'error in fetching' });
   }
 };
+
 
 
 

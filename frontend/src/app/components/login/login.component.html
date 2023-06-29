@@ -11,7 +11,7 @@
               </div>
 
               <label for="password">Password</label>
-              <input type="text" id="name" name="password" [(ngModel)]="password" required>
+              <input type="password" id="name" name="password" [(ngModel)]="password" required>
               <div class="err" *ngIf="myForm.controls['password']?.invalid && (myForm.controls['password']?.dirty || myForm.controls['password']?.touched)">
                 <div class="err" *ngIf="myForm.controls['password'].errors?.['required']">Password is required.</div>
               </div>
@@ -20,7 +20,7 @@
             
             <button type="submit" [disabled]="myForm.invalid">Submit</button>
             <p>Don't have an account? <a routerLink="/signup">create account</a></p>
-            <p> <a routerLink="/forgotten-password">Reset Password?</a></p>
+            <!-- <p> <a routerLink="/forgotten-password">Reset Password?</a></p> -->
           </form>
           
          

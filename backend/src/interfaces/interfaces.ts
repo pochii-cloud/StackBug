@@ -3,6 +3,7 @@ export interface Answer {
     answer: string;
     user_id: string;
     question_id: string;
+    comments?:Comment[]
   }
 
   export interface Comment {
@@ -19,6 +20,8 @@ export interface Question {
   description: string;
   code: string;
   tags: string;
+  answers?:Answer[]
+  comments?:Comment[]
 }
 
 

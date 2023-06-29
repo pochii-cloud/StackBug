@@ -14,6 +14,7 @@ import * as UserActions from '../../state/actions/users.actions'
 import * as LoginActions from '../../state/actions/login.actions'
 import { selectAnswers } from 'src/app/state/selectors/answer.selector';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UsersService } from 'src/app/services/user/users.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  usertoupdate!:User
   user!:loggedInUser
   userquestions:Question[]=[]
   useranswers:Answer[]=[]
@@ -30,13 +32,13 @@ export class ProfileComponent implements OnInit {
   showquestions:boolean=true
   updateProfileFormShow = false;
 
-    constructor(private store:Store<AppState>,private router:Router,private loginService:LoginService,private fb: FormBuilder){}
+    constructor(private store:Store<AppState>,private router:Router,private loginService:LoginService,private fb: FormBuilder,private userService:UsersService){}
 
   ngOnInit(): void {
     this.updateProfileForm = this.fb.group({
-      name: [''],
-      email: [''],
-      id: ['']
+      name: [localStorage.getItem('username')],
+      email: [localStorage.getItem('email')],
+      id: [localStorage.getItem('id')]
     })
 
     
@@ -91,8 +93,11 @@ export class ProfileComponent implements OnInit {
     this.updateProfileFormShow=true
   }
 
-  updateProfile() { 
-    this.store.dispatch(UserActions.updateUser(this.updateProfileForm.value))
+  updateProfile(user:User) { 
+    this.store.dispatch(UserActions.updateUser({...this.user,...this.updateProfileForm.value}))
+    this.userService.updateUser(user)
     console.log(this.updateProfileForm.value);
+    this.router.navigate(['/'])
   }
 }
+

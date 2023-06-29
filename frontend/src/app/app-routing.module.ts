@@ -13,6 +13,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ForgottenPasswordComponent } from './components/forgotten-password/forgotten-password.component';
 import { CanActivateService } from './services/canActivate/can-activate.service';
+import { IsAdminService } from './services/is-admin/is-admin.service';
 
 const routes: Routes = [
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
   },
   {
     path:'admin',
-    loadComponent:()=>import('../app/components/admin/admin.component').then(c=>c.AdminComponent),canActivate:[CanActivateService]
+    loadComponent:()=>import('../app/components/admin/admin.component').then(c=>c.AdminComponent),canActivate:[IsAdminService]
     // component:AdminComponent 
   },
   {

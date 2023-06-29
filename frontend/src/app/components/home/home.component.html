@@ -7,8 +7,13 @@
 
     <div class="askquestiobutton">
     <button routerLink="/ask-question">Ask Question</button>
-
+    
       <div class="question-tags">
+        <form (ngSubmit)="search()">
+          <input type="text" [(ngModel)]="searchTerm" name="searchTerm" placeholder="Search">
+          <button type="submit">Search</button>
+        </form>
+       
           <table>
               <tr>
                   <td (click)="interestingquestions()">Interesting</td>

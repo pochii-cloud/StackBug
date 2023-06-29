@@ -30,27 +30,13 @@ export class AskQuestionComponent implements OnInit {
 
       onSubmit() {
 
-        // if (this.askQuestionForm.invalid) {
-        //   return;
-        // }
-    
-        // if(this.isUpdating)
-        // {
-    
-        //   this.store.dispatch(QuestionsActions.updateQuestion({...this.questionToUpdate, ...this.askQuestionForm.value}));
-        //   this.questionService.isQuestionUpdated = false;
-        //   this.askQuestionForm.reset();
-        //   this.router.navigate(['/questions']);
-        //   return;
-        // }
-    
-     
+       
         this.store.dispatch(QuestionsActions.addQuestion({
           id: '',
           description: '',
           code: '',
           tags: '',
-          user_id:this.loginService.getloggedinuserid(),
+          user_id:localStorage.getItem('id'),
           ...this.askQuestionForm.value
         }));
         

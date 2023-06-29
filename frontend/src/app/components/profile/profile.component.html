@@ -72,7 +72,7 @@
         <div class="update-profile" *ngIf="updateProfileFormShow">
           <p>Update Profile</p>
         
-          <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile()">
+          <form [formGroup]="updateProfileForm" (ngSubmit)="updateProfile(usertoupdate)">
               <div class="form-group">
                   <label for="name">UserName</label>
                   <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter name">

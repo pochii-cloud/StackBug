@@ -17,6 +17,7 @@ export class LoggedInUserEffects {
         mergeMap((action) =>
             this.loginService.login(action.user).pipe(
                 tap((user) => {
+                    localStorage.setItem("id",user.id)
                     localStorage.setItem("token", user.token);
                     localStorage.setItem("username", user.username);
                     localStorage.setItem("email", user.email);

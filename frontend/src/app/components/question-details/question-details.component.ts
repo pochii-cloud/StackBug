@@ -66,7 +66,7 @@ export class QuestionDetailsComponent implements OnInit {
         answer = {
           id: ' ',
           answer: this.postanswerform.value.answer,
-          user_id: this.loginService.getloggedinuserid() ,
+          user_id: localStorage.getItem('id') as string,
           comments:[],
           question_id: this.question.id
         }
@@ -83,7 +83,7 @@ export class QuestionDetailsComponent implements OnInit {
           id: ' ',
           comment: this.commentform.value.comment,
           answer_id: answer.id,
-          user_id: this.loginService.getloggedinuserid()
+          user_id: localStorage.getItem('id') as string,
         }
     
         this.store.dispatch(QuestionsActions.addComment(comment))

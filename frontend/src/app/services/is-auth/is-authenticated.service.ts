@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,14 @@ export class IsAuthenticatedService {
     } else {
       return false;
     }
+  }
+  isAdmin():boolean{
+     let isadmin=localStorage.getItem('role')
+     if(isadmin === '1'){
+      return true
+     }
+     else{
+      return false
+     }
   }
 }

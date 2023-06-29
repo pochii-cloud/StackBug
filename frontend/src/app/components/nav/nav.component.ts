@@ -17,12 +17,14 @@ import { QuestionService } from 'src/app/services/questions/question.service';
 export class NavComponent implements OnInit{
     is_authenticated:boolean=false
     show=false;
-    searchTerm!:string
+    is_admin:boolean=false
+    
 
     constructor(private authservice:IsAuthenticatedService,private router:Router,private searchService:SharedService,private questionService:QuestionService){}
 
     ngOnInit(): void {
       this.is_authenticated = this.authservice.isAuthenticated();
+      this.is_admin=this.authservice.isAdmin()
     }
   
     ngOnChanges(): void {
@@ -35,6 +37,10 @@ export class NavComponent implements OnInit{
    
     logout() {
       localStorage.removeItem('token');
+      localStorage.removeItem('username');
+      localStorage.removeItem('email');
+      localStorage.removeItem('role');
+      localStorage.removeItem('id');
       this.is_authenticated = false;
       this.router.navigate(['/']);
 
@@ -50,12 +56,12 @@ export class NavComponent implements OnInit{
     }, 4000);
     }
      
-    search(): void {
-      if (this.searchTerm) {
-        this.searchService.setSearchTerm(this.searchTerm);
-        console.log('search term',this.searchTerm)
-      }
-    }
+    // search(): void {
+    //   if (this.searchTerm) {
+    //     this.searchService.setSearchTerm(this.searchTerm);
+    //     console.log('search term',this.searchTerm)
+    //   }
+    // }
 
 
     

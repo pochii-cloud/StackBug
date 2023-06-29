@@ -12,13 +12,14 @@ import { TagspipePipe } from "../../pipes/tagspipe/tagspipe.pipe";
 import { SearchPipe } from "../../pipes/search/search.pipe";
 import { SharedService } from 'src/app/services/shared/shared.service';
 import { DisplayMessageComponent } from "../display-message/display-message.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    imports: [CommonModule, RouterModule, TagspipePipe, SearchPipe, DisplayMessageComponent]
+    imports: [CommonModule, RouterModule, TagspipePipe, SearchPipe, DisplayMessageComponent,FormsModule]
 })
 export class HomeComponent implements OnInit  {
 
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit  {
   pageSize = 10;
   pages = [1,2,3,4,5,];
   filteredQuestions: Question[] = [];
-  term!:string
+  searchTerm!:string
   user!: User;
 
 
@@ -48,7 +49,6 @@ export class HomeComponent implements OnInit  {
       this.questions =questions as Question[];
       console.log(this.questions)
     });
-    this.fetchSearchResults();
 
   }
 
@@ -113,17 +113,16 @@ export class HomeComponent implements OnInit  {
   }
 
 
-  fetchSearchResults() {
-    const searchTerm = this.searchService.setSearchTerm(this.term);
-    console.log('searchterm here',searchTerm)
-    if (searchTerm) {
-      this.questionService.searchQuestions(searchTerm).subscribe(
-        (results) => {
-          this.questions = results;
-          console.log('searched questions',this.questions)
+  search(): void {
+    if (this.searchTerm) {
+      this.questionService.searchQuestions(this.searchTerm).subscribe(
+        (questions) => {
+         this.questions=questions
+          console.log(questions);
         },
         (error) => {
-          console.error('Error fetching search results:', error);
+          // Handle the error
+          console.error('Error searching questions:', error);
         }
       );
     }

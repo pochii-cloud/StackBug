@@ -19,25 +19,28 @@ const getAllQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function
             page: parseInt(String(page), 10),
             pageSize: parseInt(String(pageSize), 10)
         };
-        const result = yield helpers_1.DatabaseHelper.exec('getAllQuestions', data);
-        if (result && result.recordsets.length > 0) {
-            const questions = result.recordsets[0].map((row) => {
-                return {
+        const result = yield (yield helpers_1.DatabaseHelper.exec('getAllQuestions', data)).recordset;
+        if (result && result.length > 0) {
+            const questions = result.map((row) => {
+                const question = {
                     id: row.id,
                     title: row.title,
                     description: row.description,
                     user_id: row.user_id,
                     tags: row.tags,
-                    code: row.code
+                    code: row.code,
+                    answers: [],
+                    comments: []
                 };
+                return question;
             });
             const reversedQuestions = questions.reverse();
             for (const question of reversedQuestions) {
-                const answersResult = yield helpers_1.DatabaseHelper.exec('getAnswersByQuestionId', { id: question.id });
-                question.answers = answersResult.recordsets[0];
+                const answersResult = yield (yield helpers_1.DatabaseHelper.exec('getAnswersByQuestionId', { id: question.id })).recordset;
+                question.answers = answersResult;
                 for (const answer of question.answers) {
-                    const comments = yield helpers_1.DatabaseHelper.exec('getAnswerCommentByAnswerId', { answer_id: answer.id });
-                    answer.comments = comments.recordsets[0];
+                    const commentsResult = yield (yield helpers_1.DatabaseHelper.exec('getAnswerCommentByAnswerId', { answer_id: answer.id })).recordset;
+                    answer.comments = commentsResult;
                 }
             }
             res.status(200).json(reversedQuestions);

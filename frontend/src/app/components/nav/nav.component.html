@@ -48,7 +48,7 @@
 
 
   <button id="register-button" 
-  *ngIf="is_authenticated"
+  *ngIf="is_admin"
 
   routerLink="/admin"
   type="button"
@@ -95,14 +95,6 @@
           >
             Questions
           </a>
-        </li>
-        <li>
-
-            <form (ngSubmit)="search()">
-              <input type="text" [(ngModel)]="searchTerm" name="searchTerm" placeholder="Search">
-              <button type="submit">Search</button>
-            </form>
-            
         </li>
       </ul>
     </div>
