@@ -14,7 +14,7 @@
           </div>
           <div class="Name">
             <h1>{{user.username}}</h1>
-            <h4>{{user.role? 'ADMIN':'MEMBER'}}</h4>
+            <h4>{{user.email}}</h4>
           </div>
         </div>
       </div>
@@ -49,6 +49,10 @@
               </div>
              
             </div>
+          </div>
+
+          <div class="bottom-right-section" *ngIf="userquestions.length <0 && showquestions">
+                <p>uliza maswali kijana</p>
           </div>
           
           <div *ngIf="useranswers.length > 0 && !showquestions">

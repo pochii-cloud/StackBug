@@ -11,9 +11,9 @@
       <div class="question-tags">
           <table>
               <tr>
-                  <td>Interesting</td>
-                  <td>Top</td>
-                  <td>Latest</td>
+                  <td (click)="interestingquestions()">Interesting</td>
+                  <td (click)="questionswithmostanswers()">Top</td>
+                  <td  (click)="questionsWithEmptyAnswers()">Unanswered</td>
               </tr>
           </table>
       </div>

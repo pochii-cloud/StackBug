@@ -60,6 +60,7 @@ export interface loggedInUser {
   username: string;
   email: string;
   token : string;
+  role?:string
 
 }
 

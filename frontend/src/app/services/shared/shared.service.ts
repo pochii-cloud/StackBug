@@ -5,14 +5,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
-
+  searchTerm!: string;
   constructor() { }
-  private searchTermSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  public searchTerm$: Observable<string> = this.searchTermSubject.asObservable();
-
-  setSearchTerm(searchTerm: string): void {
-    this.searchTermSubject.next(searchTerm);
+ 
+  setSearchTerm(term: string) {
+    this.searchTerm = term;
+    console.log('service returned',this.searchTerm)
+    return this.searchTerm
   }
-
 
 }

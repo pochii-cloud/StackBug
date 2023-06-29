@@ -27,6 +27,8 @@ import { TagspipePipe } from './pipes/tagspipe/tagspipe.pipe';
 import { answerVotesReducer } from './state/reducers/AnswerVote.reducer';
 import { AnswerVoteEffects } from './state/effects/AnswerVote.effects';
 import { SearchPipe } from './pipes/search/search.pipe';
+import { DisplayMessageComponent } from './components/display-message/display-message.component';
+
 
 
 
@@ -45,6 +47,7 @@ import { SearchPipe } from './pipes/search/search.pipe';
     LoginComponent,
     SignupComponent,
     FormsModule,
+    DisplayMessageComponent,
     HttpClientModule,
     ReactiveFormsModule,
     StoreModule.forRoot({questions:questionsReducer,loggedInUser: _loggedInUserReducer,registerUser: registerUserReducer,answers: answersReducer,users:usersReducer,answervote:answerVotesReducer}, {}),

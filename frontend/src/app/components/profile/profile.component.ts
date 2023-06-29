@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { selectLoggedInUser } from 'src/app/state/selectors/loggedinuser.selector';
 import { AppState } from 'src/app/state/app.state';
 import { Store } from '@ngrx/store';
-import { Answer, Question, User, profile } from 'src/interfaces/interfaces';
+import { Answer, Question, User, loggedInUser, profile } from 'src/interfaces/interfaces';
 import { LoginService } from 'src/app/services/login/login.service';
 import { selectQuestions } from 'src/app/state/selectors/questions.selectors';
 import * as QuestionsActions from '../../state/actions/questionactions';
@@ -23,7 +23,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user!:profile
+  user!:loggedInUser
   userquestions:Question[]=[]
   useranswers:Answer[]=[]
   updateProfileForm!: FormGroup;
@@ -34,19 +34,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateProfileForm = this.fb.group({
-      name: [this.user.username],
-      email: [this.user.email],
-      id: [this.user.id]
+      name: [''],
+      email: [''],
+      id: ['']
     })
 
-
-    this.store.dispatch(UserActions.loadUsers())
-    this.store.select(selectLoggedInUser).subscribe((user: any) => {
+    
+    this.store.select(selectLoggedInUser).subscribe((user) => {
       if(user){
         this.user=user
         console.log('user',user.id)
       }
       else{
+        console.log('no user')
           this.router.navigate(['/login'])
       }
    
@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
     this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 50}));
     this.store.select( selectQuestions).subscribe(questions => {
       this.userquestions = questions.filter(question => question.user_id == this.user.id) as Question[];
-      console.log(this.userquestions)
+      console.log('questions',this.userquestions)
     });
 
     this.store.dispatch(AnswerActions.loadAnswers())

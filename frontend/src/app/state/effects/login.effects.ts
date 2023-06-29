@@ -18,6 +18,9 @@ export class LoggedInUserEffects {
             this.loginService.login(action.user).pipe(
                 tap((user) => {
                     localStorage.setItem("token", user.token);
+                    localStorage.setItem("username", user.username);
+                    localStorage.setItem("email", user.email);
+                    localStorage.setItem("role", user.role!);
                    
                 }),
             map((user) => loginActions.loginSuccess({ user })),

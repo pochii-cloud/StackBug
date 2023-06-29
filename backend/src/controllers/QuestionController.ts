@@ -168,3 +168,21 @@ export const getQuestionsByAnswerCountController = async (req: Request, res: Res
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+
+export const searchQuestions = async (req: Request, res: Response): Promise<void> => {
+  const searchTerm = req.query.term as string;
+
+  try {
+    const result = await DatabaseHelper.exec('SearchQuestions', { searchTerm });
+
+    // Assuming the stored procedure returns a result set
+    const questions = result.recordset;
+
+    res.json(questions);
+  } catch (error) {
+    console.error('Error searching questions:', error);
+    res.status(500).json({ message: 'Error searching questions' });
+  }
+};
+

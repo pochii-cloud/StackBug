@@ -11,12 +11,14 @@ import { selectQuestions } from 'src/app/state/selectors/questions.selectors';
 import { TagspipePipe } from "../../pipes/tagspipe/tagspipe.pipe";
 import { SearchPipe } from "../../pipes/search/search.pipe";
 import { SharedService } from 'src/app/services/shared/shared.service';
+import { DisplayMessageComponent } from "../display-message/display-message.component";
+
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    imports: [CommonModule, RouterModule, TagspipePipe, SearchPipe]
+    imports: [CommonModule, RouterModule, TagspipePipe, SearchPipe, DisplayMessageComponent]
 })
 export class HomeComponent implements OnInit  {
 
@@ -24,10 +26,10 @@ export class HomeComponent implements OnInit  {
   currentPage = 1;
   pageSize = 10;
   pages = [1,2,3,4,5,];
-  searchTerm: string = '';
   filteredQuestions: Question[] = [];
-
+  term!:string
   user!: User;
+
 
 
   
@@ -36,22 +38,17 @@ export class HomeComponent implements OnInit  {
 
 
 
-  constructor(private store: Store<AppState>, private questionService: QuestionService, private router: Router,private sharedService:SharedService) {
+  constructor(private store: Store<AppState>, private questionService: QuestionService, private router: Router,private searchService:SharedService,) {
     
   }
 
   ngOnInit(): void {
-    this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 40}));
+    this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 20}));
     this.store.select( selectQuestions).subscribe(questions => {
       this.questions =questions as Question[];
       console.log(this.questions)
-
-
-      this.sharedService.searchTerm$.subscribe(searchTerm => {
-        this.searchTerm = searchTerm;
-        this.filteredQuestions = this.filterQuestions(this.searchTerm);
-      });
     });
+    this.fetchSearchResults();
 
   }
 
@@ -63,7 +60,7 @@ export class HomeComponent implements OnInit  {
   }
 
   filterQuestions(searchTerm: string): Question[] {
-    this.store.dispatch(QuestionsActions.loadQuestions({ page: 1, pageSize: 40 }));
+    this.store.dispatch(QuestionsActions.loadQuestions({ page: 1, pageSize: 30 }));
     let filteredQuestions: Question[] = [];
   
     this.store.select(selectQuestions).subscribe(questions => {
@@ -84,10 +81,56 @@ export class HomeComponent implements OnInit  {
       this.questions= this.questions.filter(q => q.tags && q.tags.includes(tag));
       
     });
-
-
-
   }
+
+  questionswithmostanswers() {
+    this.store.select(selectQuestions).subscribe(questions => {
+      this.questions = questions as Question[]; 
+      // Create a copy of the array using the spread operator
+      const sortedQuestions = [...this.questions];
+      // Sort the copied array based on the number of answers
+      sortedQuestions.sort((a, b) => b.answers.length - a.answers.length); 
+      // Assign the sorted array back to this.questions
+      this.questions = sortedQuestions;
+    });
+  }
+
+  questionsWithEmptyAnswers() {
+    this.store.select(selectQuestions).subscribe(questions => {
+      this.questions = questions as Question[];
+      
+      // Filter questions where the answers array is empty
+      this.questions = this.questions.filter(question => question.answers.length === 0);
+    });
+  }
+
+  interestingquestions(){
+    this.store.select(selectQuestions).subscribe(questions => {
+      this.questions = questions as Question[];
+       // Filter questions with answers
+       this.questions = this.questions.filter(question => question.answers.length > 0);
+    });
+  }
+
+
+  fetchSearchResults() {
+    const searchTerm = this.searchService.setSearchTerm(this.term);
+    console.log('searchterm here',searchTerm)
+    if (searchTerm) {
+      this.questionService.searchQuestions(searchTerm).subscribe(
+        (results) => {
+          this.questions = results;
+          console.log('searched questions',this.questions)
+        },
+        (error) => {
+          console.error('Error fetching search results:', error);
+        }
+      );
+    }
+  }
+  
+  
+  
 
 
 }

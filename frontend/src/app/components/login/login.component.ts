@@ -8,12 +8,14 @@ import { IsAuthenticatedService } from 'src/app/services/is-auth/is-authenticate
 import { AppState } from 'src/app/state/app.state';
 import { selectLoggedInUser, selectLoggedInUserStateError, selectLoggedInUserStateloading } from 'src/app/state/selectors/loggedinuser.selector';
 import * as loggedInUserActions from '../../state/actions/login.actions'
+import { DisplayMessageComponent } from "../display-message/display-message.component";
+import { userToLogin } from 'src/interfaces/interfaces';
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    standalone: true,
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, DisplayMessageComponent]
 })
 export class LoginComponent implements OnInit{
 
@@ -23,6 +25,10 @@ export class LoginComponent implements OnInit{
     isLoading: boolean = false;
     error!:any
     userid!:string;
+    message!:string |null
+
+
+    
     ngOnInit(): void {
      
     
@@ -43,7 +49,10 @@ export class LoginComponent implements OnInit{
 
       }
     
-  
+      this.store.select(selectLoggedInUserStateError).subscribe(error=>{
+        this.message=error.statusText
+        console.log(error)
+      })
       this.store.dispatch(loggedInUserActions.login({ user: form.value }));
       console.log(form.value)
       this.store.select(selectLoggedInUserStateloading).subscribe((loading) => {
@@ -57,27 +66,22 @@ export class LoginComponent implements OnInit{
       });
    
 
-      this.store.select(selectLoggedInUser).subscribe((user: any) => {
-        if (user) {
-          if (user.role) {
-            this.router.navigate(['/admin']);
-          }
-          else {
-            // reload page and redirect to home
-            const currentUrl = this.router.url;
-
-            console.log(user)
-            this.loginService.setuserid(user.id)
-          
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-              this.router.navigate(["/"]);
-            }
-            );
-  
-          }
-        }
-  
-      })
+      this.store.select(selectLoggedInUser).subscribe((user) => {
+        
+          const updatedUser = {
+            ...user,
+            username: localStorage.getItem('username') as string,
+            email: localStorage.getItem('email') as string,
+            role: localStorage.getItem('role') as string,
+            token: localStorage.getItem('token') as string
+          };
+         
+          this.router.navigate(['/questions']);
+          console.log(updatedUser);
+       
+      });
+      
+      
   
     }
     

@@ -40,6 +40,8 @@ export class QuestionDetailsComponent implements OnInit {
        this.store.dispatch(AnswerVoteActions.loadAnswerVotes())
        this.store.select(selectAnswerVotes).subscribe(answersvote=>{
           this.votes=answersvote
+
+          console.log('votes',this.votes)
        })
 
        
@@ -121,7 +123,13 @@ export class QuestionDetailsComponent implements OnInit {
       
       getVoteCount(answerId: string): number {
         const answerVotes = this.votes.filter(vote => vote.answer_id === answerId);
-        return answerVotes.reduce((total, vote) => total + (vote.upvote ? 1 : -1), 0);
+        // return answerVotes[0].votes
+
+        if (answerVotes.length > 0) {
+          return answerVotes[0].votes;
+        } else {
+          return 0;
+        }
       }
       
 

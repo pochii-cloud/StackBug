@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http'
+import { Observable, catchError, throwError } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Answer, Question,Comment } from 'src/interfaces/interfaces';
 
 @Injectable({
@@ -42,5 +42,16 @@ export class QuestionService {
 
   addComment(comment:Comment): Observable<Comment> {
     return this.http.post<Comment>('http://localhost:5000/comments/add-comment', comment);
+  }
+
+  searchQuestions(term: string): Observable<Question[]> {
+    const params = new HttpParams().set('term', term);
+
+    return this.http.get<Question[]>('http://localhost:5000/questions/search', { params }).pipe(
+      catchError((error: any) => {
+        console.error('Error searching questions:', error);
+        return throwError('Error searching questions');
+      })
+    );
   }
 }

@@ -24,7 +24,8 @@ export class AdminComponent  implements OnInit {
       constructor(private store: Store<AppState>, private questionService: QuestionService, private router: Router) {}
       
      ngOnInit(): void {
-    this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 30}));
+      
+    this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 20}));
     this.store.select( selectQuestions).subscribe(questions => {
       this.questions =questions as Question[];
       console.log(this.questions)

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getQuestionsByAnswerCountController = exports.getQuestionsByUserId = exports.deleteQuestion = exports.updateQuestion = exports.insertQuestion = exports.getQuestionById = exports.getAllQuestions = void 0;
+exports.searchQuestions = exports.getQuestionsByAnswerCountController = exports.getQuestionsByUserId = exports.deleteQuestion = exports.updateQuestion = exports.insertQuestion = exports.getQuestionById = exports.getAllQuestions = void 0;
 const helpers_1 = require("../helpers");
 const uuid_1 = require("uuid");
 const getAllQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -153,3 +153,17 @@ const getQuestionsByAnswerCountController = (req, res) => __awaiter(void 0, void
     }
 });
 exports.getQuestionsByAnswerCountController = getQuestionsByAnswerCountController;
+const searchQuestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const searchTerm = req.query.term;
+    try {
+        const result = yield helpers_1.DatabaseHelper.exec('SearchQuestions', { searchTerm });
+        // Assuming the stored procedure returns a result set
+        const questions = result.recordset;
+        res.json(questions);
+    }
+    catch (error) {
+        console.error('Error searching questions:', error);
+        res.status(500).json({ message: 'Error searching questions' });
+    }
+});
+exports.searchQuestions = searchQuestions;
