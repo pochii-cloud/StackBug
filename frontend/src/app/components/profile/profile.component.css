@@ -143,6 +143,26 @@
     border-radius: 5px;
     cursor: pointer;
 }
+.update-profile{
+    border: 2px solid red;
+}
+.update-profile form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.update-profile form  form-group input{
+    outline: 2px solid black;
+}
+.update-profile form  form-group input:focus{
+  outline: none;
+}
+.update-profile form button{
+    background-color: #0A95FF;
+    color: white;
+    padding: 5px 10px;
+    width: 20%;
+}
 @media screen and (max-width:768px) {
     .right-section{
         display: flex;

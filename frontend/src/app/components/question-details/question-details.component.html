@@ -33,31 +33,31 @@
                 </ul> 
              </div>
              <div class="question-section">
-              <h4 >{{answer.answer}}</h4> 
-              <a (click)="markAccepted(answer)" style="cursor:pointer;">mark accepted</a>
-              <h6>{{answer.is_accepted?'accepted':'not accepted'}}</h6>
-               <a  style="cursor: pointer;">add comment</a>
+              <h4 ><b>{{answer.answer}}</b></h4> 
+              <a *ngIf="answer.user_id !== loggedinuserid" (click)="markAccepted(answer)" style="cursor:pointer;">mark accepted</a>
+              <h6 style="color: green;">{{answer.is_accepted?'accepted':''}}</h6>
               
-               <ul *ngIf="answer.comments && answer.comments.length > 0">
-                <li *ngFor="let comment of answer.comments">
-                  {{ comment.comment }}
+               <ul *ngIf="answer.comments && answer.comments.length > 0" style="margin-left: 10px;">
+                <li *ngFor="let comment of answer.comments" style="list-style: circle;">
+                 <i> {{ comment.comment }}</i>
                 </li>
               </ul>
                 
                <form [formGroup]="commentform" style="display: flex;" (ngSubmit)="postComment(answer)">
-                <textarea formControlName="comment" name="comment"></textarea>
+                <input formControlName="comment" name="comment" style="border: 1px solid black;"/>
                
                <div *ngIf="commentform.get('comment')?.invalid && (commentform.get('comment')?.dirty || commentform.get('comment')?.touched)">
                 <p class="err" *ngIf="commentform.get('comment')?.errors?.['required']">comment is required.</p>
               </div>
-              <button><img src="../../../assets/icons/comment.svg"/></button>
+              <button style="color:#0A95FF ;">add comment</button>
                </form>
              </div>
             
            </div>
           
-
-          <div class="post-answer">
+    
+          <div class="post-answer" style="margin-top: 50px;">
+            <h2>Add Answer</h2>
            <form [formGroup]="postanswerform" (ngSubmit)="postAnswer(question)">
             <textarea formControlName="answer">
             

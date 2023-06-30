@@ -22,6 +22,7 @@ export class QuestionDetailsComponent implements OnInit {
    showcommentform=false
    commentform!:FormGroup
    votes!:AnswerVote[]
+   loggedinuserid=localStorage.getItem('id')
 
    question!:Question
     constructor( private fb:FormBuilder,private route:ActivatedRoute,private store:Store,private router:Router,private loginService:LoginService){}

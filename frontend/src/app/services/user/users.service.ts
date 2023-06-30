@@ -20,7 +20,7 @@ export class UsersService {
   }
  
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`http://localhost:5000/user/updateuser/`,
+    return this.http.post<User>(`http://localhost:5000/user/updateuser/`,
       user
     );
   }

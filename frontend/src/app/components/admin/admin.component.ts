@@ -24,6 +24,13 @@ export class AdminComponent  implements OnInit {
       constructor(private store: Store<AppState>, private questionService: QuestionService, private router: Router) {}
       
      ngOnInit(): void {
+
+    if(localStorage.getItem('role')=='1'){
+      this.router.navigate(['/admin'])
+    }
+    else{
+      this.router.navigate(['/questions'])
+    }
       
     this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 20}));
     this.store.select( selectQuestions).subscribe(questions => {
@@ -34,7 +41,8 @@ export class AdminComponent  implements OnInit {
 
     this.store.dispatch(UserActions.loadUsers());
     this.store.select( selectUsers).subscribe(users => {
-      this.users =users as User[];
+      const userstosee=users.filter(u=>u.username !== 'admin')
+      this.users =userstosee as User[];
       console.log(this.users)
     });
 

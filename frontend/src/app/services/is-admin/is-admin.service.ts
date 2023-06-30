@@ -9,14 +9,13 @@ export class IsAdminService implements CanActivate {
   constructor(private router: Router) { }
   
     canActivate(): boolean {
-      const isadmin=localStorage.getItem('role')
-      if (isadmin == '1') {
+      if (localStorage.getItem('role') == '1') {
         this.router.navigate(['/admin']);
         return true;
-      } else {
-        this.router.navigate(['/login']);
-        return false;
-      }
+      } 
+
+      this.router.navigate(['/login']);
+      return false;
     }
 
    

@@ -48,7 +48,7 @@ export const usersReducer = createReducer(
     return {
       ...state,
       loading: false,
-      user: { ...state.users, ...user },
+      user: {...user },
     };
   }),
 

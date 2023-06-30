@@ -55,7 +55,7 @@ const routes: Routes = [
   },
   {
     path:'admin',
-    loadComponent:()=>import('../app/components/admin/admin.component').then(c=>c.AdminComponent),canActivate:[IsAdminService]
+    loadComponent:()=>import('../app/components/admin/admin.component').then(c=>c.AdminComponent),canActivate:[CanActivateService]
     // component:AdminComponent 
   },
   {

@@ -22,9 +22,9 @@
     <div *ngIf="showquestions == true">
       <div class="question-list" *ngIf="questions.length>0">
         <div class="question-card" *ngFor="let question of questions">
-          <div class="profile-image">
+          <!-- <div class="profile-image">
             <img src="../../../assets/tupac.png" />
-          </div>
+          </div> -->
 
           <div class="question-section">
             <h1>{{question.title}}</h1>
@@ -36,14 +36,17 @@
           </div>
         </div>
       </div>
+      <div *ngIf="questions.length<0">
+          <p>no questions</p>
+      </div>
     </div>
 
     <div *ngIf="showquestions == false">
        <div class="question-list" *ngIf="users.length>0">
       <div class="question-card" *ngFor="let user of users">
-        <div class="profile-image">
+        <!-- <div class="profile-image">
           <img src="../../../assets/tupac.png" />
-        </div>
+        </div> -->
 
         <div class="question-section">
           <h1>{{user.username}}</h1>

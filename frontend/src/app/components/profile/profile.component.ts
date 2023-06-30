@@ -36,10 +36,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateProfileForm = this.fb.group({
-      name: [localStorage.getItem('username')],
+      username: [localStorage.getItem('username')],
       email: [localStorage.getItem('email')],
       id: [localStorage.getItem('id')]
-    })
+    });
 
     
     this.store.select(selectLoggedInUser).subscribe((user) => {
@@ -74,11 +74,6 @@ export class ProfileComponent implements OnInit {
 
     );
 
-
-    
-
-
-
   }
 
 
@@ -94,9 +89,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(user:User) { 
-    this.store.dispatch(UserActions.updateUser({...this.user,...this.updateProfileForm.value}))
-    this.userService.updateUser(user)
+    this.store.dispatch(UserActions.updateUser({...this.updateProfileForm.value}))
     console.log(this.updateProfileForm.value);
+    this.router.navigate(['/'])
+  }
+  deleteQuestion(question: Question) {
+    this.store.dispatch(QuestionsActions.deleteQuestion(question))
+
     this.router.navigate(['/'])
   }
 }

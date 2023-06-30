@@ -5,18 +5,20 @@ import { Router, RouterModule } from '@angular/router';
 import * as registerUserActions from '../../state/actions/register.actions'
 import { Store } from '@ngrx/store';
 import { selectRegisterUserStateError, selectRegisterUserStateloading } from 'src/app/state/selectors/register.selectors';
+import { DisplayMessageComponent } from "../display-message/display-message.component";
 
 @Component({
-  selector: 'app-signup',
-  standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule],
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+    selector: 'app-signup',
+    standalone: true,
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.css'],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, DisplayMessageComponent]
 })
 export class SignupComponent implements OnInit {
    
   isLoading = true;
   signupform!:FormGroup
+  message!:string | null
   constructor( private fb:FormBuilder , private store:Store, private router:Router){}
 
   ngOnInit(): void {
@@ -42,15 +44,19 @@ export class SignupComponent implements OnInit {
  
     this.store.select(selectRegisterUserStateError).subscribe((error:any) => {
       if (error) {
-        console.log(error.error.message);
+        this.message=error.statusText
+        console.log(this.message)
         // this.modalHost.viewContainerRef.clear();
         // const modal = this.modalHost.viewContainerRef.createComponent(ModalComponent);
         // return;
       }
+      else{
+         this.router.navigate(['/login']);
+      }
      
     })
 
-    this.router.navigate(['/login']);
+   
   }
 
 }

@@ -9,4 +9,4 @@ exports.userroute.get('/getusers', UserController_1.getAllUsersController);
 exports.userroute.post('/loginuser', UserController_1.loginUser);
 exports.userroute.get('/getuser/:id', UserController_1.getSingleUser);
 exports.userroute.delete('/deleteuser/:id', UserController_1.deleteUser);
-exports.userroute.delete('/updateuser/:id', UserController_1.updateUser);
+exports.userroute.post('/updateuser', UserController_1.updateUser);

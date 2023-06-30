@@ -34,7 +34,7 @@
        </ul>
       </div>
 
-      <div class="right-section">
+      <div class="right-section" *ngIf="questions.length>0">
         <div class="question-card" *ngFor="let question of questions">
           <div class="question-section">
             <h2 [routerLink]="['/question-detail',question.id]">{{question.title}} </h2>
@@ -43,20 +43,24 @@
                 <a (click)="filterbytags(tag)">{{tag}}</a>
              </div>
               <div class="user">
-                <span>@John M</span>
+                <span></span>
               </div>
             </div>
           </div>
          
         </div>
 
-        <div class="pagination">
-          <button  (click)="onPageChange(currentPage - 1)">Previous</button>
-  
-          <!-- <button *ngFor="let page of pages" (click)="onPageChange(page)" [class.active]="page === currentPage">{{page}}</button> -->
-          <button  (click)="onPageChange(currentPage + 1)">Next</button>
+         <div class="pagination">
+          <button  (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+          <button (click)="goToNextPage()" [disabled]="currentPage == totalPages">Next</button>
+
+
+         </div>
       </div>
+      <div class="right-section" *ngIf="questions.length<0">
+          <p>No Questions</p>
       </div>
+
  </div>
 
 

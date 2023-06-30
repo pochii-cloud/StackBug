@@ -24,9 +24,8 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent implements OnInit  {
 
   questions: Question[] = [];
-  currentPage = 1;
-  pageSize = 10;
-  pages = [1,2,3,4,5,];
+  currentPage:number=1
+  totalPages:number=5
   filteredQuestions: Question[] = [];
   searchTerm!:string
   user!: User;
@@ -44,7 +43,7 @@ export class HomeComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 20}));
+    this.store.dispatch(QuestionsActions.loadQuestions({page: this.currentPage, pageSize: 1}));
     this.store.select( selectQuestions).subscribe(questions => {
       this.questions =questions as Question[];
       console.log(this.questions)
@@ -52,15 +51,36 @@ export class HomeComponent implements OnInit  {
 
   }
 
-  onPageChange(page: number) {
-    this.currentPage = page;
-    this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 5}));
 
-   console.log(this.currentPage)
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateQuestions();
+    }
   }
+  
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateQuestions();
+    }
+  }
+  
+  updateQuestions(): void {
+    this.store.dispatch(QuestionsActions.loadQuestions({ page: this.currentPage, pageSize: 1 }));
+  }
+  
+
+  // onPageChange(page: number) {
+  //   this.currentPage = page;
+  //   this.store.dispatch(QuestionsActions.loadQuestions({page: 1, pageSize: 5}));
+
+  //  console.log(this.currentPage)
+  // }
 
   filterQuestions(searchTerm: string): Question[] {
-    this.store.dispatch(QuestionsActions.loadQuestions({ page: 1, pageSize: 30 }));
+    this.store.dispatch(QuestionsActions.loadQuestions({ page: 1, pageSize: 10 }));
     let filteredQuestions: Question[] = [];
   
     this.store.select(selectQuestions).subscribe(questions => {
